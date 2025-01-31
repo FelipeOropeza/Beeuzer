@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beeuzer</title>
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
 </head>
 <body>
     <h1>Loja</h1>
