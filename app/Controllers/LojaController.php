@@ -7,6 +7,6 @@ class LojaController extends Controller
 {
     public function index()
     {
-        return view(name: 'loja');
+        return view('loja/loja');
     }
 }
