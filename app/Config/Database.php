@@ -28,7 +28,7 @@ class Database extends Config
         'DSN'          => '',
         'hostname'     => 'localhost',
         'username'     => 'root',
-        'password'     => 'kiraFE22022006',
+        'password'     => '',
         'database'     => 'beeuzer_db',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
