@@ -1,6 +1,5 @@
 <?= $this->extend('layouts/default') ?>
 
 <?= $this->section('content') ?>
-    <h1>Página Inicial</h1>
-    <p>Bem-vindo ao meu site!</p>
+    <h1>Loja</h1>
 <?= $this->endSection() ?>
