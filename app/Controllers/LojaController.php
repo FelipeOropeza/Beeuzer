@@ -16,7 +16,7 @@ class LojaController extends Controller
 
         if ($tamanhoModel->validate($data)) {
             $tamanhoModel->insert($data);
-            var_dump('Inserção bem-sucedida!');
+            // var_dump('Inserção bem-sucedida!');
         } else {
             var_dump($tamanhoModel->errors());
         }
