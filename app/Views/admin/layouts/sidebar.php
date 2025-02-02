@@ -2,10 +2,10 @@
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="/admin/dashboard">Dashboard</a>
+                <a class="nav-link active" href="<?= url_to("dashboard") ?>">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/produtos">Gerenciar Produtos</a>
+                <a class="nav-link" href="<?= url_to('produtos') ?>">Gerenciar Produtos</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/admin/usuarios">Gerenciar Usuários</a>

@@ -4,6 +4,9 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\UsuarioModel;
+use App\Models\ProdutoModel;
+use App\Models\CorModel;
+use App\Models\TamanhoModel;
 
 class AdminController extends Controller
 {
@@ -51,17 +54,70 @@ class AdminController extends Controller
     }
 
     public function index()
-    {
-        if (!session()->get('is_admin')) {
-            return redirect()->to('admin/login')->with('error', 'Acesso negado.');
-        }
-
-        return view('admin/dashboard');
+{
+    if (!session()->get('is_admin')) {
+        return redirect()->to('admin/login')->with('error', 'Acesso negado.');
     }
+
+    $produtoModel = new ProdutoModel();
+    $produtosCount = $produtoModel->countAll();
+
+    return view('admin/dashboard', [
+        'produtosCount' => $produtosCount
+    ]);
+}
+
 
     public function logout()
     {
         session()->destroy();
         return redirect()->to('admin/login')->with('success', 'Logout realizado com sucesso.');
+    }
+
+    public function produtos()
+    {
+        if (!session()->get('is_admin')) {
+            return redirect()->to('admin/login')->with('error', 'Acesso negado.');
+        }
+
+        $produtoModel = new ProdutoModel();
+        $corModel = new CorModel();
+        $tamanhoModel = new TamanhoModel();
+
+        $produtos = $produtoModel
+            ->select('produtos.id, produtos.nome, produtos.preco, cores.nome AS cor, tamanhos.descricao AS tamanho')
+            ->join('cores', 'cores.id = produtos.cor_id')
+            ->join('tamanhos', 'tamanhos.id = produtos.tamanho_id')
+            ->findAll();
+
+        $data = [
+            'produtos' => $produtos,
+            'cores' => $corModel->findAll(),
+            'tamanhos' => $tamanhoModel->findAll(),
+        ];
+
+        return view('admin/produto', $data);
+
+    }
+
+    public function adicionarProduto()
+    {
+        if (!session()->get('is_admin')) {
+            return redirect()->to('admin/login')->with('error', 'Acesso negado.');
+        }
+
+        $produtoModel = new ProdutoModel();
+
+        $dadosFormulario = $this->request->getPost();
+
+        if (!$produtoModel->validate($dadosFormulario)) {
+            return redirect()->to('admin/produtos')
+                ->withInput()
+                ->with('validation', $produtoModel->errors());
+        }
+
+        $produtoModel->save($dadosFormulario);
+
+        return redirect()->to('admin/produtos')->with('success', 'Produto adicionado com sucesso.');
     }
 }

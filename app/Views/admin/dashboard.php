@@ -9,7 +9,7 @@
             <div class="card text-white bg-primary mb-3">
                 <div class="card-header">Produtos</div>
                 <div class="card-body">
-                    <h5 class="card-title">150 Produtos</h5>
+                    <h5 class="card-title"><?= $produtosCount ?> Produto</h5>
                     <p class="card-text">Gerencie os produtos cadastrados no sistema.</p>
                 </div>
             </div>
