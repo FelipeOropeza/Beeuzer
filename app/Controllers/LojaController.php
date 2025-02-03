@@ -2,25 +2,22 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
-use App\Models\TamanhoModel;
+use App\Models\ProdutoModel;
 
 class LojaController extends Controller
 {
     public function index()
     {
-        $tamanhoModel = new TamanhoModel();
+        $produtoModel = new ProdutoModel();
 
-        $data = [
-            'descricao' => 'M',
-        ];
+        $produtos = $produtoModel->findAll();
 
-        if ($tamanhoModel->validate($data)) {
-            $tamanhoModel->insert($data);
-            // var_dump('Inserção bem-sucedida!');
-        } else {
-            var_dump($tamanhoModel->errors());
+        foreach ($produtos as &$produto) {
+            if (!empty($produto['imagem'])) {
+                $produto['imagem'] = base_url($produto['imagem']);
+            }
         }
 
-        return view('loja/loja');
+        return view('loja/loja', ['produtos' => $produtos]);
     }
 }

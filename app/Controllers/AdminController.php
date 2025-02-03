@@ -54,18 +54,18 @@ class AdminController extends Controller
     }
 
     public function index()
-{
-    if (!session()->get('is_admin')) {
-        return redirect()->to('admin/login')->with('error', 'Acesso negado.');
+    {
+        if (!session()->get('is_admin')) {
+            return redirect()->to('admin/login')->with('error', 'Acesso negado.');
+        }
+
+        $produtoModel = new ProdutoModel();
+        $produtosCount = $produtoModel->countAll();
+
+        return view('admin/dashboard', [
+            'produtosCount' => $produtosCount
+        ]);
     }
-
-    $produtoModel = new ProdutoModel();
-    $produtosCount = $produtoModel->countAll();
-
-    return view('admin/dashboard', [
-        'produtosCount' => $produtosCount
-    ]);
-}
 
 
     public function logout()
@@ -108,7 +108,23 @@ class AdminController extends Controller
 
         $produtoModel = new ProdutoModel();
 
+        $file = $this->request->getFile('image');
+
+        $imagePath = null;
+
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            $newName = $file->getRandomName();
+
+            $publicPath = FCPATH . 'uploads/';
+
+            $file->move($publicPath, $newName);
+
+            $imagePath = 'uploads/' . $newName;
+        }
+
         $dadosFormulario = $this->request->getPost();
+
+        $dadosFormulario['imagem'] = $imagePath;
 
         if (!$produtoModel->validate($dadosFormulario)) {
             return redirect()->to('admin/produtos')

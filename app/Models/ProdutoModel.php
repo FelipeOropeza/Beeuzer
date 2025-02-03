@@ -9,7 +9,7 @@ class ProdutoModel extends Model
     protected $table      = 'produtos';
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['nome', 'preco', 'cor_id', 'tamanho_id', 'created_at', 'updated_at'];
+    protected $allowedFields = ['nome', 'preco', 'cor_id', 'tamanho_id', 'imagem', 'created_at', 'updated_at']; // Adicionado 'imagem'
 
     protected $useTimestamps = true;
 
@@ -18,6 +18,7 @@ class ProdutoModel extends Model
         'preco'      => 'required|decimal',
         'cor_id'     => 'required|is_natural_no_zero',
         'tamanho_id' => 'required|is_natural_no_zero',
+        'imagem'     => 'permit_empty|valid_url', // Valida se é uma URL válida
     ];
 
     protected $validationMessages = [
@@ -36,6 +37,9 @@ class ProdutoModel extends Model
         'tamanho_id' => [
             'required' => 'O tamanho do produto é obrigatório.',
             'is_natural_no_zero' => 'O tamanho deve ser um ID válido.',
+        ],
+        'imagem' => [
+            'valid_url' => 'O campo imagem deve conter uma URL válida.',
         ],
     ];
 }

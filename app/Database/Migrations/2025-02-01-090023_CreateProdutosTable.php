@@ -33,6 +33,11 @@ class CreateProdutosTable extends Migration
                 'constraint' => 11,
                 'unsigned'   => true,
             ],
+            'imagem' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => true,
+            ],
             'created_at' => [
                 'type'    => 'DATETIME',
                 'null'    => true,
@@ -41,7 +46,7 @@ class CreateProdutosTable extends Migration
                 'type'    => 'TIMESTAMP',
                 'null'    => true,
                 'default' => null,
-                'on_update' => 'CURRENT_TIMESTAMP', // Atualiza automaticamente
+                'on_update' => 'CURRENT_TIMESTAMP',
             ],
         ]);
 

@@ -61,12 +61,20 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body">
-                <form action="<?= url_to('adicionar_produto') ?>" method="post">
+                <form action="<?= url_to('adicionar_produto') ?>" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome do Produto</label>
                         <input type="text" class="form-control" id="nome" name="nome" value="<?= old('nome') ?>">
                         <?php if (isset(session('validation')['nome'])): ?>
                             <div class="text-danger"><?= session('validation')['nome'] ?></div>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Imagem do Produto</label>
+                        <input type="file" class="form-control" name="image" id="image">
+                        <?php if (isset(session('validation')['image'])): ?>
+                            <div class="text-danger"><?= session('validation')['image'] ?></div>
                         <?php endif; ?>
                     </div>
 
