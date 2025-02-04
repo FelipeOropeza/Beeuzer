@@ -9,16 +9,16 @@
         <li class="nav-item">
           <a class="nav-link" href="<?= url_to('home') ?>">Home</a>
         </li>
-        <?php if (session()->has('user')) : ?>
+        <?php if (session()->has('usuario')) : ?>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <?= session('user')['name'] ?>
+              <?= session('usuario')['nome'] ?>
             </a>
             <ul class="dropdown-menu" aria-labelledby="userDropdown">
               <li><a class="dropdown-item" href="<?= base_url('/perfil') ?>">Perfil</a></li>
               <li><a class="dropdown-item" href="<?= base_url('/carrinho') ?>">Carrinho</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item text-danger" href="<?= base_url('/logout') ?>">Logout</a></li>
+              <li><a class="dropdown-item text-danger" href="<?= url_to('logout') ?>">Logout</a></li>
             </ul>
           </li>
         <?php else : ?>

@@ -11,25 +11,26 @@
             <?php endif; ?>
 
 
-            <form action="<?= base_url('/login') ?>" method="post">
+            <form action="<?= url_to('autenticar') ?>" method="post">
                 <?= csrf_field() ?>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">E-mail</label>
-                    <input type="email" name="email" id="email"
-                        class="form-control <?= session('errors.email') ? 'is-invalid' : '' ?>"
-                        value="<?= old('email') ?>" required>
-                    <?php if (session('errors.email')): ?>
-                        <div class="invalid-feedback"><?= session('errors.email') ?></div>
+                    <input type="email" name="email" id="email" class="form-control" value="<?= old('email') ?>">
+                    <?php if (isset(session('validation')['email'])): ?>
+                        <div class="text-danger">
+                            <?= session('validation')['email'] ?>
+                        </div>
                     <?php endif; ?>
                 </div>
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Senha</label>
-                    <input type="password" name="password" id="password"
-                        class="form-control <?= session('errors.password') ? 'is-invalid' : '' ?>" required>
-                    <?php if (session('errors.password')): ?>
-                        <div class="invalid-feedback"><?= session('errors.password') ?></div>
+                    <input type="password" name="senha" id="senha" class="form-control">
+                    <?php if (isset(session('validation')['senha'])): ?>
+                        <div class="text-danger">
+                            <?= session('validation')['senha'] ?>
+                        </div>
                     <?php endif; ?>
                 </div>
 
