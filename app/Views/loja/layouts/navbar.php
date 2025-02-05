@@ -16,7 +16,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="userDropdown">
               <li><a class="dropdown-item" href="<?= base_url('/perfil') ?>">Perfil</a></li>
-              <li><a class="dropdown-item" href="<?= base_url('/carrinho') ?>">Carrinho</a></li>
+              <li><a class="dropdown-item" href="<?= url_to('carrinho') ?>">Carrinho</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item text-danger" href="<?= url_to('logout') ?>">Logout</a></li>
             </ul>
