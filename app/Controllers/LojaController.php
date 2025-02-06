@@ -3,6 +3,8 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\ProdutoModel;
+use App\Models\CorModel;
+use App\Models\TamanhoModel;
 
 class LojaController extends Controller
 {
@@ -24,6 +26,8 @@ class LojaController extends Controller
     public function detalhes($id)
     {
         $produtoModel = new ProdutoModel();
+        $corModel = new CorModel();
+        $tamanhoModel = new TamanhoModel();
 
         $produto = $produtoModel->find($id);
 
@@ -35,6 +39,12 @@ class LojaController extends Controller
             $produto['imagem'] = base_url($produto['imagem']);
         }
 
-        return view('loja/detalhes', ['produto' => $produto]);
+        $data = [
+            'produto' => $produto,
+            'cores' => $corModel->findAll(),
+            'tamanhos' => $tamanhoModel->findAll(),
+        ];
+
+        return view('loja/detalhes', $data);
     }
 }

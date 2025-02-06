@@ -3,68 +3,77 @@ namespace App\Controllers;
 
 use App\Models\ProdutoModel;
 use App\Models\CarrinhoModel;
+use App\Models\ProdutoVariacaoModel;
 
 class CarrinhoController extends BaseController
 {
-    public function adicionar($produto_id)
+    public function adicionar()
     {
         $session = session();
         $carrinhoModel = new CarrinhoModel();
 
-        // Verifica se o usuário está logado
         if (!$session->has('usuario')) {
             return redirect()->to('/login');
         }
 
+        $produtoVariacao = new ProdutoVariacaoModel();
+        $dadosformulario = $this->request->getPost();
+
         $user_id = $session->get('usuario')['id'];
 
-        // Verifica se o produto já está no carrinho do usuário
-        $item = $carrinhoModel->where('produto_id', $produto_id)
+        $result = $produtoVariacao->getVariacaoProduto($dadosformulario['produto_id'], $dadosformulario['cor_id'], $dadosformulario['tamanho_id']);
+
+        if (!$result) {
+            return redirect()->to('produto/' . $dadosformulario['produto_id'])
+                ->withInput()
+                ->with('erro', 'A combinação selecionada de tamanho e cor não está disponível para este produto.');
+        }
+
+        $item = $carrinhoModel->where('produtos_variacoes_id', $result['id'])
             ->where('user_id', $user_id)
             ->first();
 
         if ($item) {
-            // Atualiza a quantidade
-            $carrinhoModel->update($item['id'], ['quantidade' => $item['quantidade'] + 1]);
+            $carrinhoModel->update($item['id'], ['quantidade' => $item['quantidade'] + $dadosformulario['quantidade']]);
         } else {
-            // Adiciona novo item ao carrinho
+            var_dump($result);
             $carrinhoModel->insert([
-                'produto_id' => $produto_id,
-                'quantidade' => 1,
+                'produtos_variacoes_id' => $result['id'],
+                'quantidade' => $dadosformulario['quantidade'],
                 'user_id' => $user_id
             ]);
         }
 
-        return redirect()->to('usuario/carrinho/verCarrinho');
+        return redirect()->to('usuario/carrinho/meucarrinho');
     }
 
-    public function verCarrinho()
+    public function meucarrinho()
     {
-        $session = session();
-        $carrinhoModel = new CarrinhoModel();
-        $produtoModel = new ProdutoModel();
+        // $session = session();
+        // $carrinhoModel = new CarrinhoModel();
+        // $produtoModel = new ProdutoModel();
 
-        // Verifica se o usuário está logado
-        if (!$session->has('usuario')) {
-            return redirect()->to('/login'); // Redireciona para a página de login
-        }
+        // // Verifica se o usuário está logado
+        // if (!$session->has('usuario')) {
+        //     return redirect()->to('/login'); // Redireciona para a página de login
+        // }
 
-        $user_id = $session->get('usuario')['id'];
+        // $user_id = $session->get('usuario')['id'];
 
-        // Busca os itens do carrinho do usuário
-        $itens = $carrinhoModel->where('user_id', $user_id)->findAll();
-        $data['itens'] = [];
+        // // Busca os itens do carrinho do usuário
+        // $itens = $carrinhoModel->where('user_id', $user_id)->findAll();
+        // $data['itens'] = [];
 
-        foreach ($itens as $item) {
-            $produto = $produtoModel->find($item['produto_id']);
-            $data['itens'][] = [
-                'produto' => $produto,
-                'quantidade' => $item['quantidade'],
-                'id_carrinho' => $item['id'] // ID do item no carrinho para remoção
-            ];
-        }
+        // foreach ($itens as $item) {
+        //     $produto = $produtoModel->find($item['produto_id']);
+        //     $data['itens'][] = [
+        //         'produto' => $produto,
+        //         'quantidade' => $item['quantidade'],
+        //         'id_carrinho' => $item['id'] // ID do item no carrinho para remoção
+        //     ];
+        // }
 
-        return view('loja/carrinho', $data);
+        return view('loja/carrinho');
     }
 
     public function remover($id)

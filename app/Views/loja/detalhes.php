@@ -8,30 +8,53 @@
         </div>
         <div class="col-md-6">
             <h1><?= esc($produto['nome']) ?></h1>
+            <?php if (session()->has('erro')): ?>
+                <div id="success-alert" class="alert alert-danger">
+                    <?= session('erro') ?>
+                </div>
+            <?php endif; ?>
+            <p class="text-muted"><?= esc($produto['descricao']) ?></p>
             <p class="text-success fw-bold">R$ <?= number_format($produto['preco'], 2, ',', '.') ?></p>
-            
-            <div class="mb-3">
-                <label for="tamanho" class="form-label">Escolha o Tamanho:</label>
-                <select id="tamanho" class="form-select">
-                    <option value="P">P</option>
-                    <option value="M">M</option>
-                    <option value="G">G</option>
-                    <option value="GG">GG</option>
-                </select>
-            </div>
-            
-            <div class="mb-3">
-                <label for="cor" class="form-label">Escolha a Cor:</label>
-                <select id="cor" class="form-select">
-                    <option value="preto">Preto</option>
-                    <option value="branco">Branco</option>
-                    <option value="azul">Azul</option>
-                    <option value="vermelho">Vermelho</option>
-                </select>
-            </div>
-            
-            <a href="<?= route_to('adicionar', $produto['id']) ?>" class="btn btn-success">Adicionar ao Carrinho</a>
+
+            <form action="<?= url_to('adicionar') ?>" method="post">
+                <input type="hidden" name="produto_id" value="<?= $produto['id'] ?>">
+                <div class="mb-3">
+                    <label for="tamanho_id" class="form-label">Tamanho</label>
+                    <select class="form-select" id="tamanho_id" name="tamanho_id" required>
+                        <?php foreach ($tamanhos as $tamanho): ?>
+                            <option value="<?= $tamanho['id'] ?>"><?= esc($tamanho['descricao']) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="cor_id" class="form-label">Cor</label>
+                    <select class="form-select" id="cor_id" name="cor_id" required>
+                        <?php foreach ($cores as $cor): ?>
+                            <option value="<?= $cor['id'] ?>"><?= esc($cor['nome']) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="quantidade" class="form-label">Quantidade</label>
+                    <input type="number" class="form-control" id="quantidade" name="quantidade" value="1" min="1"
+                        required>
+                </div>
+
+                <button class="btn btn-success" type="submit">Adicionar ao Carrinho</button>
+            </form>
         </div>
     </div>
 </div>
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        var successAlert = document.getElementById('success-alert');
+        if (successAlert) {
+            setTimeout(function () {
+                successAlert.style.display = 'none';
+            }, 2000);
+        }
+    });
+</script>
 <?= $this->endSection() ?>
