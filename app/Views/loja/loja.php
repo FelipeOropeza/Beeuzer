@@ -11,12 +11,8 @@
                         <h5 class="card-title"><?= esc($produto['nome']) ?></h5>
                         <p class="card-text text-success fw-bold">R$ <?= number_format($produto['preco'], 2, ',', '.') ?>
                         </p>
-                        <div class="d-flex justify-content-between">
-                            <a href="<?= base_url('produto/detalhes/' . $produto['id']) ?>"
-                                class="btn btn-primary btn-sm">Detalhes</a>
-                            <a href="<?= base_url('carrinho/adicionar/' . $produto['id']) ?>"
-                                class="btn btn-success btn-sm">Adicionar ao Carrinho</a>
-                        </div>
+                        <a href="<?= route_to('detalhes', $produto['id']) ?>"
+                            class="btn btn-success btn-sm">Comprar</a>
                     </div>
                 </div>
             </div>

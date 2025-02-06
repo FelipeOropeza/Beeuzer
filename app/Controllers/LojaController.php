@@ -20,4 +20,21 @@ class LojaController extends Controller
 
         return view('loja/loja', ['produtos' => $produtos]);
     }
+
+    public function detalhes($id)
+    {
+        $produtoModel = new ProdutoModel();
+
+        $produto = $produtoModel->find($id);
+
+        if (empty($produto)) {
+            return redirect()->to('/');
+        }
+
+        if (!empty($produto['imagem'])) {
+            $produto['imagem'] = base_url($produto['imagem']);
+        }
+
+        return view('loja/detalhes', ['produto' => $produto]);
+    }
 }

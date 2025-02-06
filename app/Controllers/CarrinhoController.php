@@ -6,13 +6,6 @@ use App\Models\CarrinhoModel;
 
 class CarrinhoController extends BaseController
 {
-    public function index()
-    {
-        $produtoModel = new ProdutoModel();
-        $data['produtos'] = $produtoModel->findAll();
-        return view('loja/lista_produtos', $data);
-    }
-
     public function adicionar($produto_id)
     {
         $session = session();
