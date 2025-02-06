@@ -7,6 +7,7 @@ use App\Models\UsuarioModel;
 use App\Models\ProdutoModel;
 use App\Models\CorModel;
 use App\Models\TamanhoModel;
+use App\Models\ProdutoVariacaoModel;
 
 class AdminController extends Controller
 {
@@ -83,15 +84,13 @@ class AdminController extends Controller
         $produtoModel = new ProdutoModel();
         $corModel = new CorModel();
         $tamanhoModel = new TamanhoModel();
+        $produtoVariacaoModel = new ProdutoVariacaoModel();
 
-        $produtos = $produtoModel
-            ->select('produtos.id, produtos.nome, produtos.preco, cores.nome AS cor, tamanhos.descricao AS tamanho')
-            ->join('cores', 'cores.id = produtos.cor_id')
-            ->join('tamanhos', 'tamanhos.id = produtos.tamanho_id')
-            ->findAll();
+        $produtosVariacoes = $produtoVariacaoModel->getVariaçõesProduto();
 
         $data = [
-            'produtos' => $produtos,
+            'produtosVariacoes' => $produtosVariacoes,
+            'produtos' => $produtoModel->findAll(),
             'cores' => $corModel->findAll(),
             'tamanhos' => $tamanhoModel->findAll(),
         ];
@@ -136,4 +135,31 @@ class AdminController extends Controller
 
         return redirect()->to('admin/produtos')->with('success', 'Produto adicionado com sucesso.');
     }
+
+    public function adicionarVariacao()
+    {
+        if (!session()->get('is_admin')) {
+            return redirect()->to('admin/login')->with('error', 'Acesso negado.');
+        }
+
+        $produtovariacaoModel = new ProdutoVariacaoModel();
+
+        $dadosFormulario = $this->request->getPost();
+
+        $cor_id = $dadosFormulario['cor_id'];
+        $tamanho_id = $dadosFormulario['tamanho_id'];
+
+        $variacaoExistente = $produtovariacaoModel->where('cor_id', $cor_id)
+            ->where('tamanho_id', $tamanho_id)
+            ->first();
+
+        if ($variacaoExistente) {
+            return redirect()->to('admin/produtos')->with('error', 'Esta variação de produto já existe com a mesma cor e tamanho.');
+        }
+
+        $produtovariacaoModel->save($dadosFormulario);
+
+        return redirect()->to('admin/produtos')->with('success', 'Variação adicionada com sucesso.');
+    }
+
 }
