@@ -16,7 +16,7 @@ class CreateCarrinhoTable extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'produto_id' => [
+            'produtos_variacoes_id' => [
                 'type'       => 'INT',
                 'constraint' => 11,
                 'unsigned'   => true,
@@ -43,20 +43,16 @@ class CreateCarrinhoTable extends Migration
             ],
         ]);
 
-        // Define a chave primária
         $this->forge->addPrimaryKey('id');
 
-        // Define as chaves estrangeiras
-        $this->forge->addForeignKey('produto_id', 'produtos', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('produtos_variacoes_id', 'produtos_variacoes', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('user_id', 'users', 'id', 'CASCADE', 'CASCADE');
 
-        // Cria a tabela
         $this->forge->createTable('carrinho');
     }
 
     public function down()
     {
-        // Remove a tabela 'carrinho' se a migration for revertida
         $this->forge->dropTable('carrinho');
     }
 }

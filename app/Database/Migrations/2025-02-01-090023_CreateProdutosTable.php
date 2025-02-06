@@ -19,19 +19,13 @@ class CreateProdutosTable extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
             ],
+            'descricao' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+            ],
             'preco' => [
                 'type'       => 'DECIMAL',
                 'constraint' => '10,2',
-            ],
-            'cor_id' => [
-                'type'       => 'INT',
-                'constraint' => 11,
-                'unsigned'   => true,
-            ],
-            'tamanho_id' => [
-                'type'       => 'INT',
-                'constraint' => 11,
-                'unsigned'   => true,
             ],
             'imagem' => [
                 'type'       => 'VARCHAR',
@@ -51,8 +45,6 @@ class CreateProdutosTable extends Migration
         ]);
 
         $this->forge->addPrimaryKey('id');
-        $this->forge->addForeignKey('cor_id', 'cores', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('tamanho_id', 'tamanhos', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('produtos');
     }
 
