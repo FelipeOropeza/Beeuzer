@@ -18,7 +18,7 @@
             <div class="card text-white bg-success mb-3">
                 <div class="card-header">Usuários</div>
                 <div class="card-body">
-                    <h5 class="card-title">35 Usuários</h5>
+                    <h5 class="card-title"><?= $usuariosCount ?> Usuários</h5>
                     <p class="card-text">Veja e gerencie os usuários cadastrados.</p>
                 </div>
             </div>

@@ -63,8 +63,12 @@ class AdminController extends Controller
         $produtoModel = new ProdutoModel();
         $produtosCount = $produtoModel->countAll();
 
+        $usuarioModel = new UsuarioModel();
+        $usuariosCount = $usuarioModel->countAll();
+
         return view('admin/dashboard', [
-            'produtosCount' => $produtosCount
+            'produtosCount' => $produtosCount,
+            'usuariosCount' => $usuariosCount,
         ]);
     }
 
@@ -72,7 +76,7 @@ class AdminController extends Controller
     public function logout()
     {
         session()->destroy();
-        return redirect()->to('admin/login')->with('success', 'Logout realizado com sucesso.');
+        return redirect()->to('/')->with('success', 'Logout realizado com sucesso.');
     }
 
     public function produtos()
