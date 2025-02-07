@@ -49,32 +49,20 @@ class CarrinhoController extends BaseController
 
     public function meucarrinho()
     {
-        // $session = session();
-        // $carrinhoModel = new CarrinhoModel();
-        // $produtoModel = new ProdutoModel();
+        $session = session();
 
-        // // Verifica se o usuário está logado
-        // if (!$session->has('usuario')) {
-        //     return redirect()->to('/login'); // Redireciona para a página de login
-        // }
+        if (!$session->has('usuario')) {
+            return redirect()->to('/login');
+        }
 
-        // $user_id = $session->get('usuario')['id'];
+        $user_id = $session->get('usuario')['id'];
 
-        // // Busca os itens do carrinho do usuário
-        // $itens = $carrinhoModel->where('user_id', $user_id)->findAll();
-        // $data['itens'] = [];
+        $carrinhoModel = new CarrinhoModel();
+        $data['itens'] = $carrinhoModel->getCarrinhoDetalhado($user_id);
 
-        // foreach ($itens as $item) {
-        //     $produto = $produtoModel->find($item['produto_id']);
-        //     $data['itens'][] = [
-        //         'produto' => $produto,
-        //         'quantidade' => $item['quantidade'],
-        //         'id_carrinho' => $item['id'] // ID do item no carrinho para remoção
-        //     ];
-        // }
-
-        return view('loja/carrinho');
+        return view('loja/carrinho', $data);
     }
+
 
     public function remover($id)
     {
