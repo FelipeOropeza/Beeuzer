@@ -1,9 +1,10 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\ProdutoModel;
 use App\Models\CarrinhoModel;
 use App\Models\ProdutoVariacaoModel;
+use App\Models\PedidoModel;
+use App\Models\PedidoProdutoModel;
 
 class CarrinhoController extends BaseController
 {
@@ -69,5 +70,52 @@ class CarrinhoController extends BaseController
         $carrinhoModel = new CarrinhoModel();
         $carrinhoModel->delete($id);
         return redirect()->to('loja/carrinho');
+    }
+
+    public function finalizarCompra()
+    {
+        $session = session();
+
+        if (!$session->has('usuario')) {
+            return redirect()->to('/login');
+        }
+
+        $user_id = $session->get('usuario')['id'];
+
+        $carrinhoModel = new CarrinhoModel();
+        $carrinho = $carrinhoModel->getCarrinhoDetalhado($user_id);
+
+        if (empty($carrinho)) {
+            return redirect()->to('usuario/carrinho/meucarrinho')
+                ->with('erro', 'Seu carrinho está vazio.');
+        }
+
+        $total = 0;
+        foreach ($carrinho as $item) {
+            $total += $item['preco'] * $item['quantidade'];
+        }
+
+        $pedidoModel = new PedidoModel();
+        $pedido_id = $pedidoModel->insert([
+            'user_id' => $user_id,
+            'datapedido' => date('Y-m-d'),
+            'totalpedido' => $total
+        ]);
+
+        $pedidoProdutoModel = new PedidoProdutoModel();
+        foreach ($carrinho as $item) {
+            $pedidoProdutoModel->insert([
+                'pedido_id' => $pedido_id,
+                'produtos_variacoes_id' => $item['produtos_variacoes_id'],
+                'quantidade' => $item['quantidade'],
+                'valoritem' => $item['preco'],
+                'totalprod' => $item['quantidade'] * $item['preco']
+            ]);
+        }
+
+        $carrinhoModel->where('user_id', $user_id)->delete();
+
+        return redirect()->to('usuario/carrinho/meucarrinho')
+            ->with('sucesso', 'Compra realizada com sucesso!');
     }
 }

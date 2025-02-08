@@ -18,7 +18,7 @@ class CreatePedidosTable extends Migration
                 'type'    => 'DATE',
                 'null' => true,
             ],
-            'totapedido' => [
+            'totalpedido' => [
                 'type'       => 'DECIMAL',
                 'constraint' => '7,2',
                 'null'       => false

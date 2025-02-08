@@ -13,14 +13,15 @@ class CarrinhoModel extends Model
     public function getCarrinhoDetalhado($user_id)
     {
         return $this->select(
-                'carrinho.id AS id_carrinho,
+            ' produtos_variacoes.id AS produtos_variacoes_id,
+                carrinho.id AS id_carrinho,
                 produtos.nome, 
                 produtos.preco, 
                 tamanhos.descricao AS tamanho, 
                 cores.nome AS cor, 
                 carrinho.quantidade, 
                 SUM(produtos.preco * carrinho.quantidade) AS total'
-            )
+        )
             ->join('produtos_variacoes', 'produtos_variacoes.id = carrinho.produtos_variacoes_id')
             ->join('produtos', 'produtos.id = produtos_variacoes.produto_id')
             ->join('tamanhos', 'tamanhos.id = produtos_variacoes.tamanho_id')

@@ -56,7 +56,7 @@
                         <span class="text-success">R$ <?= number_format($totalGeral, 2, ',', '.') ?></span>
                     </div>
 
-                    <a href="<?= base_url('checkout') ?>" class="btn btn-primary w-100 mt-4">
+                    <a href="<?= url_to('finalizar') ?>" class="btn btn-primary w-100 mt-4">
                         💳 Finalizar Compra
                     </a>
                 <?php endif; ?>

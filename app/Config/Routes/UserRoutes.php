@@ -10,5 +10,5 @@ $routes->group('usuario', ['filter' => 'auth'], function ($routes) {
     $routes->get('carrinho/meucarrinho', 'CarrinhoController::meucarrinho', ['as' => 'meucarrinho']); // Ver carrinho
     $routes->post('carrinho/adicionar', 'CarrinhoController::adicionar', ['as' => 'adicionar']); // Adicionar ao carrinho
     $routes->get('carrinho/remover/(:num)', 'CarrinhoController::remover/$1', ['as' => 'remover']); // Remover do carrinho
-    $routes->post('comprar', 'CarrinhoController::finalizarCompra'); // Finalizar compra
+    $routes->get('finalizar', 'CarrinhoController::finalizarCompra', ['as' => 'finalizar']); // Finalizar compra
 });
