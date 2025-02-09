@@ -85,22 +85,25 @@ class AdminController extends Controller
             return redirect()->to('admin/login')->with('error', 'Acesso negado.');
         }
 
+        service('pager');
+    
         $produtoModel = new ProdutoModel();
         $corModel = new CorModel();
         $tamanhoModel = new TamanhoModel();
-        $produtoVariacaoModel = new ProdutoVariacaoModel();
-
-        $produtosVariacoes = $produtoVariacaoModel->getVariaçõesProduto();
-
+    
+        $pagina = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
+        $model = model(ProdutoVariacaoModel::class);
+        $produtosVariacoes = $model->getVariaçõesProduto($pagina);
+    
         $data = [
             'produtosVariacoes' => $produtosVariacoes,
+            'pager' => $model->pager,
             'produtos' => $produtoModel->findAll(),
             'cores' => $corModel->findAll(),
             'tamanhos' => $tamanhoModel->findAll(),
         ];
-
+    
         return view('admin/produto', $data);
-
     }
 
     public function adicionarProduto()

@@ -13,14 +13,13 @@ class ProdutoVariacaoModel extends Model
 
     protected $useTimestamps = true;
 
-
-    public function getVariaçõesProduto()
+    public function getVariaçõesProduto($pagina = 1, $itensPorPagina = 5)
     {
         return $this->select('produtos_variacoes.id, produtos.nome, produtos.preco, cores.nome AS cor, tamanhos.descricao AS tamanho')
-            ->join('produtos', 'produtos.id = produtos_variacoes.produto_id')
-            ->join('cores', 'cores.id = produtos_variacoes.cor_id')
-            ->join('tamanhos', 'tamanhos.id = produtos_variacoes.tamanho_id')
-            ->findAll();
+                    ->join('produtos', 'produtos.id = produtos_variacoes.produto_id')
+                    ->join('cores', 'cores.id = produtos_variacoes.cor_id')
+                    ->join('tamanhos', 'tamanhos.id = produtos_variacoes.tamanho_id')
+                    ->paginate($itensPorPagina, 'default', $pagina);
     }
 
     public function getVariacaoProduto($produto_id, $cor_id, $tamanho_id)

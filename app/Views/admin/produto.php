@@ -33,7 +33,6 @@
 <button type="button" class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#modalVariacao">
     + Adicionar Variação de Produto
 </button>
-
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
@@ -63,6 +62,12 @@
         </tbody>
     </table>
 </div>
+
+<?php if (isset($pager)): ?>
+    <div class="d-flex justify-content-center">
+        <?= $pager->links('default','foundation_full') ?>
+    </div>
+<?php endif; ?>
 
 <?= $this->include('admin/produtos/modalProduto') ?>
 <?= $this->include('admin/produtos/modalProdutoVariacoes') ?>
