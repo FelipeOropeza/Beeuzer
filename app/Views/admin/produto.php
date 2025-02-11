@@ -69,7 +69,7 @@
     </div>
 <?php endif; ?>
 
-<?= $this->include('admin/produtos/modalProduto') ?>
-<?= $this->include('admin/produtos/modalProdutoVariacoes') ?>
+<?= $this->include('admin/modal/modalProduto') ?>
+<?= $this->include('admin/modal/modalProdutoVariacoes') ?>
 
 <?= $this->endSection() ?>

@@ -37,7 +37,6 @@
             <?php endif; ?>
         </div>
 
-        <!-- Resumo de Compra (Div da Direita) -->
         <div class="col-12 col-md-4">
             <div class="card p-3">
                 <h3 class="h4 mb-4">Resumo da Compra</h3>
@@ -64,6 +63,8 @@
         </div>
     </div>
 </div>
+
+<?= $this->include('loja/modal/modalFinalizar') ?>
 
 
 <?= $this->endSection() ?>
