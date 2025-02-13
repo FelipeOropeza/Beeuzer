@@ -11,23 +11,15 @@ class TamanhoSeeder extends Seeder
         $data = [
             [
                 'descricao' => 'P',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'descricao' => 'M',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'descricao' => 'G',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'descricao' => 'GG',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
             ],
         ];
 

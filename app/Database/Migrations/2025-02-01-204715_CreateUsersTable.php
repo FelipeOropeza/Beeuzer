@@ -31,15 +31,7 @@ class CreateUsersTable extends Migration
             'is_admin' => [
                 'type'       => 'BOOLEAN',
                 'default'    => 0,
-            ],
-            'created_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
-            ],
-            'updated_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
-            ],
+            ]
         ]);
 
         $this->forge->addPrimaryKey('id');

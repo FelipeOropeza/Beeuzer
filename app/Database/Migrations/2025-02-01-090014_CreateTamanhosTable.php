@@ -18,17 +18,7 @@ class CreateTamanhosTable extends Migration
             'descricao' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 3, 
-            ],
-            'created_at' => [
-                'type'    => 'DATETIME',
-                'null'    => true,
-            ],
-            'updated_at' => [
-                'type'    => 'TIMESTAMP',
-                'null'    => true,
-                'default' => null,
-                'on_update' => 'CURRENT_TIMESTAMP', 
-            ],
+            ]
         ]);
 
         $this->forge->addPrimaryKey('id');

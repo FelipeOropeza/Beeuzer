@@ -11,8 +11,6 @@ class CorModel extends Model
 
     protected $allowedFields = ['nome', 'created_at', 'updated_at'];
 
-    protected $useTimestamps = true;
-
     protected $validationRules = [
         'nome' => 'required|max_length[50]',
     ];

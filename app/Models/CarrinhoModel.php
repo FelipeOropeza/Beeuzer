@@ -8,7 +8,6 @@ class CarrinhoModel extends Model
     protected $table = 'carrinho';
     protected $primaryKey = 'id';
     protected $allowedFields = ['produtos_variacoes_id', 'quantidade', 'user_id'];
-    protected $useTimestamps = true;
 
     public function getCarrinhoDetalhado($user_id)
     {

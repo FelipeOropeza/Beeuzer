@@ -11,8 +11,6 @@ class ProdutoVariacaoModel extends Model
 
     protected $allowedFields = ['produto_id', 'cor_id', 'tamanho_id'];
 
-    protected $useTimestamps = true;
-
     public function getVariaçõesProduto($pagina = 1, $itensPorPagina = 5)
     {
         return $this->select('produtos_variacoes.id, produtos.nome, produtos.preco, cores.nome AS cor, tamanhos.descricao AS tamanho')

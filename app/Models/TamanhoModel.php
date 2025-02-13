@@ -12,8 +12,6 @@ class TamanhoModel extends Model
 
     protected $allowedFields = ['descricao'];
 
-    protected $useTimestamps = true;
-
     protected $validationRules = [
         'descricao' => 'required|max_length[3]',
     ];

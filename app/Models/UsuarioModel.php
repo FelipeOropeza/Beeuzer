@@ -13,12 +13,8 @@ class UsuarioModel extends Model
         'nome',
         'email',
         'senha',
-        'is_admin',
-        'created_at',
-        'updated_at',
+        'is_admin'
     ];
-
-    protected $useTimestamps = true;
 
     protected $validationRules = [
         'nome' => 'required|max_length[100]',
