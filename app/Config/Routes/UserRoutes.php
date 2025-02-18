@@ -13,4 +13,5 @@ $routes->group('usuario', ['filter' => 'auth'], function ($routes) {
     $routes->get('finalizar', 'CarrinhoController::finalizarCompra', ['as' => 'finalizar']); // Finalizar compra
     $routes->get('perfil', 'PerfilController::index', ['as' => 'perfil']); // Perfil
     $routes->get('perfil/meus_pedidos', 'PerfilController::meusPedidos', ['as' => 'meus_pedidos']); // Meus pedidos
+    $routes->get('perfil/meus_cartoes', 'PerfilController::meusCartoes', ['as' => 'meus_cartoes']); // Meus cartões
 });

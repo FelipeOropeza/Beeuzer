@@ -9,6 +9,9 @@
             <li class="nav-item">
                 <a href="<?= url_to('meus_pedidos') ?>" class="nav-link text-dark">📦 Meus Pedidos</a>
             </li>
+            <li class="nav-item">
+                <a href="<?= url_to('meus_cartoes') ?>" class="nav-link text-dark">💳 Meus Cartões</a>
+            </li>
         </ul>
     </div>
 </aside>
