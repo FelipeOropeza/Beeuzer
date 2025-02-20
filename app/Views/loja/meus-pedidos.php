@@ -1,15 +1,53 @@
 <?= $this->extend('loja/layouts/defaultperfil') ?>
 
 <?= $this->section('content') ?>
-<h2>📦 Meus Pedidos</h2>
+<h2 class="text-2xl font-semibold mb-6 text-gray-800 ml-4">📦 Meus Pedidos</h2>
 
-<?php foreach ($pedidos as $pedido): ?>
-    <div class="pedido">
-        <p><strong>Pedido ID:</strong> <?= $pedido['id'] ?></p>
-        <p><strong>Total do Pedido:</strong> <?= $pedido['totalpedido'] ?></p>
-        <p><strong>Cartão:</strong> <?= $pedido['cartao'] ? $pedido['cartao'] : 'Não informado' ?></p>
-        <p><strong>Status do Pagamento:</strong> <?= $pedido['status_pagamento'] ?></p>
+<?php if (empty($pedidos)): ?>
+    <div class="p-6 bg-white border border-gray-300 rounded-lg shadow-md text-center ml-4">
+        <p class="text-gray-500 text-sm">Você ainda não realizou nenhum pedido.</p>
     </div>
-<?php endforeach; ?>
+<?php else: ?>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ml-4">
+        <?php foreach ($pedidos as $pedido): ?>
+            <div class="bg-white border border-gray-200 rounded-lg shadow-lg p-4 transition hover:shadow-xl">
+                <div class="flex items-center justify-between border-b pb-3 mb-3">
+                    <h3 class="text-lg font-medium text-gray-800">Pedido #<?= $pedido['id'] ?></h3>
+                    <span class="text-xs text-gray-500">📅 <?= date('d/m/Y') ?></span>
+                </div>
+                <p class="text-gray-600 text-sm"><strong>Total:</strong> 
+                    <span class="text-green-600 font-semibold">R$ <?= number_format($pedido['totalpedido'], 2, ',', '.') ?></span>
+                </p>
+                <p class="text-gray-600 text-sm"><strong>Cartão:</strong> 
+                    <?= $pedido['cartao'] ? $pedido['cartao'] : '<span class="text-red-500">Não informado</span>' ?>
+                </p>
+                <p class="mt-3 text-sm">
+                    <strong class="text-gray-700">Status:</strong> 
+                    <?php if ($pedido['status_pedido'] === 'Aprovado'): ?>
+                        <span class="inline-block px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-medium">
+                            ✔️ Está tudo certo com seu pedido!
+                        </span>
+                    <?php elseif ($pedido['status_pedido'] === 'Pendente'): ?>
+                        <span class="inline-block px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-medium">
+                            ⏳ Informações ainda faltam no seu pedido!
+                        </span>
+                    <?php else: ?>
+                        <span class="inline-block px-2 py-1 rounded-full bg-red-100 text-red-700 text-xs font-medium">
+                            ❌ Recusado
+                        </span>
+                    <?php endif; ?>
+                </p>
+                <div class="mt-4 d-flex gap-2">
+                    <button class="btn btn-primary btn-sm" style="width: auto;">
+                        Completar Informações
+                    </button>
+                    <button class="btn btn-danger btn-sm" style="width: auto;">
+                        Excluir
+                    </button>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
 
 <?= $this->endSection() ?>
