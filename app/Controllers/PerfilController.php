@@ -22,12 +22,12 @@ class PerfilController extends Controller
 
         foreach ($pedidos as &$pedido) {
             if (is_null($pedido['pagamento'])) {
-                $pedido['status_pagamento'] = 'Pagamento ainda não foi feito';
+                $pedido['status_pedido'] = 'Pendente';
             } else {
-                $pedido['status_pagamento'] = 'Pagamento realizado';
+                $pedido['status_pedido'] = 'Aprovado';
             }
         }
-        
+
         return view('loja/meus-pedidos', ['pedidos' => $pedidos]);
     }
 
@@ -38,5 +38,34 @@ class PerfilController extends Controller
         $cartoes = $cartaoModel->where('user_id', session()->get('usuario')['id'])->findAll();
 
         return view('loja/meus-cartoes', ['cartoes' => $cartoes]);
+    }
+
+    public function cadastrarCartao()
+    {
+        $cartaoModel = new CartaoModel();
+
+        $postData = $this->request->getPost();
+
+        $validade = $postData['validade'] . '-01';
+
+        $cartaoModel->insert([
+            'user_id' => session()->get('usuario')['id'],
+            'numero_cartao' => $postData['numero_cartao'],
+            'nome_titular' => $postData['nome_titular'],
+            'validade' => $validade,
+            'tipo_cartao' => $postData['tipo_cartao'],
+            'status' => 'Ativo'
+        ]);
+
+        return redirect()->to('/usuario/perfil/meus_cartoes');
+    }
+
+    public function excluirCartao($id)
+    {
+        $cartaoModel = new CartaoModel();
+
+        $cartaoModel->delete($id);
+
+        return redirect()->to('/usuario/perfil/meus_cartoes');
     }
 }

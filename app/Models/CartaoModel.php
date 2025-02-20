@@ -12,7 +12,7 @@ class CartaoModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['numero_cartao', 'nome_titular', 'validade', 'tipo_cartao', 'status'];
+    protected $allowedFields    = ['user_id','numero_cartao', 'nome_titular', 'validade', 'tipo_cartao', 'status'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

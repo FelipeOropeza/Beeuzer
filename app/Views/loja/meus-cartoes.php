@@ -1,11 +1,13 @@
 <?= $this->extend('loja/layouts/defaultperfil') ?>
 
 <?= $this->section('content') ?>
-<h2>Cartões</h2>
+<h2 class="mb-4">Cartões</h2>
 
-<button type="button" onclick="abrirModal()" class="btn btn-primary">Adicionar Cartão</button>
+<button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#modalCartao">
+    Adicionar Cartão
+</button>
 
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Nome do Titular</th>
@@ -26,15 +28,15 @@
                     <td><?= esc($cartao['tipo_cartao']) ?></td>
                     <td><?= esc($cartao['status']) ?></td>
                     <td>
-                        <form action="<?= base_url('cartoes/excluir/' . $cartao['id']) ?>" method="post" style="display:inline;">
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este cartão?')">Excluir</button>
+                        <form action="<?= route_to('excluir_cartao', $cartao['id']) ?>" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este cartão?')">Excluir</button>
                         </form>
                     </td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td colspan="6">Nenhum cartão cadastrado.</td>
+                <td colspan="6" class="text-center">Nenhum cartão cadastrado.</td>
             </tr>
         <?php endif; ?>
     </tbody>

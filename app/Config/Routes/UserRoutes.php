@@ -14,4 +14,6 @@ $routes->group('usuario', ['filter' => 'auth'], function ($routes) {
     $routes->get('perfil', 'PerfilController::index', ['as' => 'perfil']); // Perfil
     $routes->get('perfil/meus_pedidos', 'PerfilController::meusPedidos', ['as' => 'meus_pedidos']); // Meus pedidos
     $routes->get('perfil/meus_cartoes', 'PerfilController::meusCartoes', ['as' => 'meus_cartoes']); // Meus cartões
+    $routes->post('perfil/cartoes/cadastrar', 'PerfilController::cadastrarCartao', ['as' => 'cadastrar_cartao']); // Cadastrar cartão
+    $routes->post('perfil/cartoes/excluir/(:num)', 'PerfilController::excluirCartao/$1', ['as' => 'excluir_cartao']); // Excluir cartão
 });
