@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\CartaoModel;
+use App\Models\PedidoModel;
 
 class PerfilController extends Controller
 {
@@ -13,7 +14,21 @@ class PerfilController extends Controller
 
     public function meusPedidos()
     {
-        return view('loja/meus-pedidos');
+        $usuarioId = session()->get('usuario')['id'];
+
+        $pedidoModel = new PedidoModel();
+
+        $pedidos = $pedidoModel->getPedidos($usuarioId);
+
+        foreach ($pedidos as &$pedido) {
+            if (is_null($pedido['pagamento'])) {
+                $pedido['status_pagamento'] = 'Pagamento ainda não foi feito';
+            } else {
+                $pedido['status_pagamento'] = 'Pagamento realizado';
+            }
+        }
+        
+        return view('loja/meus-pedidos', ['pedidos' => $pedidos]);
     }
 
     public function meusCartoes()
