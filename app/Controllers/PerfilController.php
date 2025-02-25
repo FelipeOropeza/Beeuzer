@@ -62,7 +62,7 @@ class PerfilController extends Controller
             'status' => 'Ativo'
         ]);
 
-        return redirect()->to('/usuario/perfil/meus_cartoes');
+        return redirect()->to('perfil/meus_cartoes');
     }
 
     public function excluirCartao($id)
@@ -71,6 +71,6 @@ class PerfilController extends Controller
 
         $cartaoModel->delete($id);
 
-        return redirect()->to('/usuario/perfil/meus_cartoes');
+        return redirect()->to('perfil/meus_cartoes');
     }
 }

@@ -82,11 +82,4 @@ class UsuarioController extends Controller
 
         return redirect()->to('login')->with('success', 'Usuário cadastrado com sucesso!');
     }
-
-    public function meusPedidos()
-    {
-        $usuario = session()->get('usuario');
-        echo $usuario;
-    }
-
 }

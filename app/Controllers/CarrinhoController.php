@@ -45,7 +45,7 @@ class CarrinhoController extends BaseController
             ]);
         }
 
-        return redirect()->to('usuario/carrinho/meucarrinho');
+        return redirect()->to('carrinho/meucarrinho');
     }
 
     public function meucarrinho()
@@ -86,7 +86,7 @@ class CarrinhoController extends BaseController
         $carrinho = $carrinhoModel->getCarrinhoDetalhado($user_id);
 
         if (empty($carrinho)) {
-            return redirect()->to('usuario/carrinho/meucarrinho')
+            return redirect()->to('carrinho/meucarrinho')
                 ->with('erro', 'Seu carrinho está vazio.');
         }
 
@@ -115,7 +115,7 @@ class CarrinhoController extends BaseController
 
         $carrinhoModel->where('user_id', $user_id)->delete();
 
-        return redirect()->to('usuario/finalizar/completarinfo/' . $pedido_id);
+        return redirect()->to('finalizar/completarinfo/' . $pedido_id);
     }
 
     public function completarInfo($id)
