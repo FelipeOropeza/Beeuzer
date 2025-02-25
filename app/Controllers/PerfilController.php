@@ -4,6 +4,7 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\CartaoModel;
 use App\Models\PedidoModel;
+use \DateTime;
 
 class PerfilController extends Controller
 {
@@ -26,6 +27,10 @@ class PerfilController extends Controller
             } else {
                 $pedido['status_pedido'] = 'Aprovado';
             }
+
+            $data = $pedido['datapedido'];
+            $dataFormatada = DateTime::createFromFormat('Y-m-d', $data)->format('d/m/Y');
+            $pedido['datapedido'] = $dataFormatada;
         }
 
         return view('loja/meus-pedidos', ['pedidos' => $pedidos]);
