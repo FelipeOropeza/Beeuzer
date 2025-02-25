@@ -115,7 +115,11 @@ class CarrinhoController extends BaseController
 
         $carrinhoModel->where('user_id', $user_id)->delete();
 
-        return redirect()->to('usuario/carrinho/meucarrinho')
-            ->with('sucesso', 'Compra realizada com sucesso!');
+        return redirect()->to('usuario/finalizar/completarinfo/' . $pedido_id);
+    }
+
+    public function completarInfo($id)
+    {
+        return view('loja/completarinfo', ['pedido_id' => $id]);
     }
 }

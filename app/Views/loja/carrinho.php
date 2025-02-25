@@ -56,15 +56,13 @@
                     </div>
 
                     <a href="<?= url_to('finalizar') ?>" class="btn btn-primary w-100 mt-4">
-                        💳 Finalizar Compra
+                        💳 Finalizar Carrinho
                     </a>
                 <?php endif; ?>
             </div>
         </div>
     </div>
 </div>
-
-<?= $this->include('loja/modal/modalFinalizar') ?>
 
 
 <?= $this->endSection() ?>

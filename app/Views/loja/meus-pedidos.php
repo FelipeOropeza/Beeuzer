@@ -13,16 +13,20 @@
             <div class="bg-white border border-gray-200 rounded-lg shadow-lg p-4 transition hover:shadow-xl">
                 <div class="flex items-center justify-between border-b pb-3 mb-3">
                     <h3 class="text-lg font-medium text-gray-800">Pedido #<?= $pedido['id'] ?></h3>
-                    <span class="text-xs text-gray-500">📅 <?= date('d/m/Y') ?></span>
+                    <span class="text-xs text-gray-500">📅 <?= $pedido['datapedido'] ?></span>
                 </div>
-                <p class="text-gray-600 text-sm"><strong>Total:</strong> 
-                    <span class="text-green-600 font-semibold">R$ <?= number_format($pedido['totalpedido'], 2, ',', '.') ?></span>
+                <p class="text-gray-600 text-sm"><strong>Total:</strong>
+                    <span class="text-green-600 font-semibold">R$
+                        <?= number_format($pedido['totalpedido'], 2, ',', '.') ?></span>
                 </p>
-                <p class="text-gray-600 text-sm"><strong>Cartão:</strong> 
+                <p class="text-gray-600 text-sm"><strong>Cartão:</strong>
                     <?= $pedido['cartao'] ? $pedido['cartao'] : '<span class="text-red-500">Não informado</span>' ?>
                 </p>
+                <p class="text-gray-600 text-sm"><strong>Endereço de entrega:</strong>
+                    <?= $pedido['endereco'] ? $pedido['endereco'] : '<span class="text-red-500">Não informado</span>' ?>
+                </p>
                 <p class="mt-3 text-sm">
-                    <strong class="text-gray-700">Status:</strong> 
+                    <strong class="text-gray-700">Status:</strong>
                     <?php if ($pedido['status_pedido'] === 'Aprovado'): ?>
                         <span class="inline-block px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-medium">
                             ✔️ Está tudo certo com seu pedido!
@@ -38,9 +42,11 @@
                     <?php endif; ?>
                 </p>
                 <div class="mt-4 d-flex gap-2">
-                    <button class="btn btn-primary btn-sm" style="width: auto;">
-                        Completar Informações
-                    </button>
+                    <a href="<?= route_to('completarinfo_pedido', $pedido['id']) ?>">
+                        <button class="btn btn-primary btn-sm" style="width: auto;">
+                            Completar Informações
+                        </button>
+                    </a>
                     <button class="btn btn-danger btn-sm" style="width: auto;">
                         Excluir
                     </button>
