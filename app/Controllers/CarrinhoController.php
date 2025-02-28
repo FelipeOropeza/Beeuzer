@@ -5,6 +5,7 @@ use App\Models\CarrinhoModel;
 use App\Models\ProdutoVariacaoModel;
 use App\Models\PedidoModel;
 use App\Models\PedidoProdutoModel;
+use App\Models\CartaoModel;
 
 class CarrinhoController extends BaseController
 {
@@ -120,6 +121,20 @@ class CarrinhoController extends BaseController
 
     public function completarInfo($id)
     {
-        return view('loja/completarinfo', ['pedido_id' => $id]);
+        $session = session();
+        $user_id = $session->get('usuario')['id'];
+
+        $cartaoModel = new CartaoModel();
+        $data['cartoes'] = $cartaoModel->where('user_id', $user_id)->findAll();
+
+        return view('loja/completarinfo', ['pedido_id' => $id, 'cartoes' => $data['cartoes']]);
     }
+
+    public function finalizarPedido()
+    {
+        $session = session();
+        $user_id = $session->get('usuario')['id'];
+
+        $dadosformulario = $this->request->getPost();
+    } 
 }

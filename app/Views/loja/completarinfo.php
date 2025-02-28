@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 <div class="container py-5">
     <h2 class="text-center mb-4">Informações de Pagamento</h2>
-    <form action="#" method="POST">
+    <form action="<?= url_to('finalizar_pedido'); ?>" method="POST">
         <div class="row g-3">
             <div class="col-md-6">
                 <div class="card shadow-sm">
@@ -14,10 +14,10 @@
                         <div class="mb-3">
                             <label for="cartaoSelecionado" class="form-label">Selecionar Cartão Salvo</label>
                             <select id="cartaoSelecionado" class="form-control">
-                                <option value="">Escolha um cartão</option>
-                                <option value="1">Cartão **** 1234</option>
-                                <option value="2">Cartão **** 5678</option>
-                                <option value="3">Cartão **** 9012</option>
+                                <option value="">Selecione um cartão</option>
+                                <?php foreach ($cartoes as $cartao) : ?>
+                                    <option value="<?= $cartao['id'] ?>">Cartão **** <?= substr($cartao['numero_cartao'], -4) ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -68,6 +68,12 @@
                                 <input type="text" class="form-control" id="estado" placeholder="UF">
                             </div>
                         </div>
+                        <div class="row g-2 mt-2">
+                            <div class="col-md-4">
+                                <label for="numero" class="form-label">Número</label>
+                                <input type="text" class="form-control" id="numero" placeholder="Número da Casa">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,5 +86,6 @@
 
 <?= $this->section('javascript') ?>
 <script src="<?= base_url('assets/js/buscarCEP.js') ?>"></script>
+<script src="<?= base_url('assets/js/cartao.js') ?>"></script>
 <?= $this->endSection() ?>
 <?= $this->endSection() ?>
