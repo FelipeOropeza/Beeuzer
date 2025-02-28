@@ -36,9 +36,9 @@ class CreateEnderecosTable extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '20',
             ],
-            'pais' => [
+            'numero' => [
                 'type' => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '4',
             ],
             'status' => [
                 'type' => 'VARCHAR',
