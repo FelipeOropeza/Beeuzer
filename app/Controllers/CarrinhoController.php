@@ -136,5 +136,6 @@ class CarrinhoController extends BaseController
         $user_id = $session->get('usuario')['id'];
 
         $dadosformulario = $this->request->getPost();
+        var_dump($dadosformulario);
     } 
 }

@@ -15,11 +15,6 @@ class CreateEnderecosTable extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'user_id' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
-            ],
             'rua' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
@@ -34,20 +29,10 @@ class CreateEnderecosTable extends Migration
             ],
             'cep' => [
                 'type' => 'VARCHAR',
-                'constraint' => '20',
-            ],
-            'numero' => [
-                'type' => 'VARCHAR',
-                'constraint' => '4',
-            ],
-            'status' => [
-                'type' => 'VARCHAR',
-                'constraint' => '50',
-                'default' => 'ativo',
-            ],
+                'constraint' => '8',
+            ]
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('user_id', 'users', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('enderecos');
     }
 
