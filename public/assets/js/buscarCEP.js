@@ -5,7 +5,7 @@ document.getElementById('cep').addEventListener('blur', function () {
             .then(response => response.json())
             .then(data => {
                 if (!data.erro) {
-                    document.getElementById('endereco').value = data.logradouro;
+                    document.getElementById('rua').value = data.logradouro;
                     document.getElementById('bairro').value = data.bairro;
                     document.getElementById('cidade').value = data.localidade;
                     document.getElementById('estado').value = data.uf;
@@ -15,4 +15,14 @@ document.getElementById('cep').addEventListener('blur', function () {
             })
             .catch(error => console.error('Erro ao buscar CEP:', error));
     }
+});
+
+window.addEventListener('DOMContentLoaded', function () {
+    var erroAlerts = document.querySelectorAll('.text-danger');
+
+    erroAlerts.forEach(function(alert) {
+        setTimeout(function () {
+            alert.style.display = 'none';
+        }, 2500);
+    });
 });

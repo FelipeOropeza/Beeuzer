@@ -25,7 +25,7 @@ class CreateEnderecosTable extends Migration
             ],
             'estado' => [
                 'type' => 'VARCHAR',
-                'constraint' => '100',
+                'constraint' => '2',
             ],
             'cep' => [
                 'type' => 'VARCHAR',

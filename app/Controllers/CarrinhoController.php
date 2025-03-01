@@ -6,6 +6,9 @@ use App\Models\ProdutoVariacaoModel;
 use App\Models\PedidoModel;
 use App\Models\PedidoProdutoModel;
 use App\Models\CartaoModel;
+use App\Models\EnderecoModel;
+use CodeIgniter\Config\Services;
+
 
 class CarrinhoController extends BaseController
 {
@@ -133,9 +136,54 @@ class CarrinhoController extends BaseController
     public function finalizarPedido()
     {
         $session = session();
+        $validation = Services::validation();
         $user_id = $session->get('usuario')['id'];
 
         $dadosformulario = $this->request->getPost();
+
+        if (isset($dadosformulario['cep'])) {
+            $dadosformulario['cep'] = str_replace('-', '', $dadosformulario['cep']);
+        }    
+
+        $enderecoModel = new EnderecoModel();
+
+        $rules = [
+            'bairro' => 'required',
+            'numero' => 'required|max_length[4]',
+            'complemento' => 'max_length[10]'
+        ];
+
+        $messages = [
+            'bairro' => [
+                'required' => 'O campo Bairro é obrigatório.',
+            ],
+            'numero' => [
+                'required' => 'O campo Numero é obrigatório.',
+                'max_length' => 'O Numero não pode ter mais de 4 caracteres.'
+            ],
+            'complemento' => [
+                'max_length' => 'O Complemento não pode ter mais de 100 caracteres.'
+            ]
+        ];
+
+        if (!$validation->setRules($rules, $messages)->run($dadosformulario)) {
+            $validationErrors = $validation->getErrors();
+        } else {
+            $validationErrors = [];
+        }
+
+        if (!$enderecoModel->validate($dadosformulario)) {
+            $modelErrors = $enderecoModel->errors();
+        } else {
+            $modelErrors = [];
+        }
+
+        $allErrors = array_merge($validationErrors, $modelErrors);
+
+        if (!empty($allErrors)) {
+            return redirect()->back()->withInput()->with('validation', $allErrors);
+        }
+
         var_dump($dadosformulario);
-    } 
+    }
 }

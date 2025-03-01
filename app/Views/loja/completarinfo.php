@@ -15,14 +15,17 @@
                             <label for="cartaoSelecionado" class="form-label">Selecionar Cartão Salvo</label>
                             <select id="cartaoSelecionado" name="cartaoSelecionado" class="form-control">
                                 <option value="">Selecione um cartão</option>
-                                <?php foreach ($cartoes as $cartao) : ?>
-                                    <option value="<?= $cartao['id'] ?>">Cartão **** <?= substr($cartao['numero_cartao'], -4) ?></option>
+                                <?php foreach ($cartoes as $cartao): ?>
+                                    <option value="<?= $cartao['id'] ?>">Cartão ****
+                                        <?= substr($cartao['numero_cartao'], -4) ?>
+                                    </option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="numeroCartao" class="form-label">Número do Cartão</label>
-                            <input type="text" class="form-control" id="numeroCartao" name="numeroCartao" placeholder="0000 0000 0000 0000">
+                            <input type="text" class="form-control" id="numeroCartao" name="numeroCartao"
+                                placeholder="0000 0000 0000 0000">
                         </div>
                         <div class="row g-2">
                             <div class="col-md-6">
@@ -47,35 +50,72 @@
                         <div class="row g-2">
                             <div class="col-md-4">
                                 <label for="cep" class="form-label">CEP</label>
-                                <input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000">
+                                <input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000" value="<?= old('cep') ?>">
+                                <?php if (isset(session('validation')['cep'])): ?>
+                                    <div class="text-danger small">
+                                        <?= session('validation')['cep'] ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                             <div class="col-md-8">
-                                <label for="endereco" class="form-label">Endereço</label>
-                                <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Rua, Número">
+                                <label for="rua" class="form-label">Endereço</label>
+                                <input type="text" class="form-control" id="rua" name="rua" placeholder="Rua" value="<?= old('rua') ?>">
+                                <?php if (isset(session('validation')['rua'])): ?>
+                                    <div class="text-danger small">
+                                        <?= session('validation')['rua'] ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="row g-2 mt-2">
                             <div class="col-md-4">
                                 <label for="bairro" class="form-label">Bairro</label>
-                                <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Bairro">
+                                <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Bairro" value="<?= old('bairro') ?>">
+                                <?php if (isset(session('validation')['bairro'])): ?>
+                                    <div class="text-danger small">
+                                        <?= session('validation')['bairro'] ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                             <div class="col-md-4">
                                 <label for="cidade" class="form-label">Cidade</label>
-                                <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Cidade">
+                                <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Cidade" value="<?= old('cidade') ?>">
+                                <?php if (isset(session('validation')['cidade'])): ?>
+                                    <div class="text-danger small">
+                                        <?= session('validation')['cidade'] ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                             <div class="col-md-4">
                                 <label for="estado" class="form-label">Estado</label>
-                                <input type="text" class="form-control" id="estado" name="estado" placeholder="UF">
+                                <input type="text" class="form-control" id="estado" name="estado" placeholder="UF" value="<?= old('estado') ?>">
+                                <?php if (isset(session('validation')['estado'])): ?>
+                                    <div class="text-danger small">
+                                        <?= session('validation')['estado'] ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="row g-2 mt-2">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <label for="numero" class="form-label">Número</label>
-                                <input type="text" class="form-control" id="numero" name="numero" placeholder="Número da Casa">
+                                <input type="text" class="form-control" id="numero" name="numero"
+                                    placeholder="Número da Casa" value="<?= old(key: 'numero') ?>">
+                                <?php if (isset(session('validation')['numero'])): ?>
+                                    <div class="text-danger small">
+                                        <?= session('validation')['numero'] ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <label for="numero" class="form-label">Complemento (opicional)</label>
-                                <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Complemento da Casa">
+                                <input type="text" class="form-control" id="complemento" name="complemento"
+                                    placeholder="Complemento da Casa" value="<?= old('complemento') ?>">
+                                <?php if (isset(session('validation')['complemento'])): ?>
+                                    <div class="text-danger small">
+                                        <?= session('validation')['complemento'] ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
