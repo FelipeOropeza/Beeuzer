@@ -42,7 +42,7 @@
                     <?php endif; ?>
                 </p>
                 <div class="mt-4 d-flex gap-2">
-                    <a href="<?= route_to('completarinfo_pedido', $pedido['id']) ?>">
+                    <a href="<?= route_to('endereco', $pedido['id']) ?>">
                         <button class="btn btn-primary btn-sm" style="width: auto;">
                             Completar Informações
                         </button>

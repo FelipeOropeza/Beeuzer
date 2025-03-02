@@ -122,18 +122,18 @@ class CarrinhoController extends BaseController
         return redirect()->to('finalizar/completarinfo/' . $pedido_id);
     }
 
-    public function completarInfo($id)
+    public function completarEndereco($id)
     {
         $session = session();
         $user_id = $session->get('usuario')['id'];
 
-        $cartaoModel = new CartaoModel();
-        $data['cartoes'] = $cartaoModel->where('user_id', $user_id)->findAll();
+        // $cartaoModel = new CartaoModel();
+        // $data['cartoes'] = $cartaoModel->where('user_id', $user_id)->findAll();
 
-        return view('loja/completarinfo', ['pedido_id' => $id, 'cartoes' => $data['cartoes']]);
+        return view('loja/endereco');
     }
 
-    public function finalizarPedido()
+    public function finalizarEndereco()
     {
         $session = session();
         $validation = Services::validation();
@@ -184,6 +184,17 @@ class CarrinhoController extends BaseController
             return redirect()->back()->withInput()->with('validation', $allErrors);
         }
 
-        var_dump($dadosformulario);
+        return redirect()->to('finalizar/pagamento/');
+    }
+
+    public function finalizarPagamento()
+    {
+        $session = session();
+        $user_id = $session->get('usuario')['id'];
+
+        $cartaoModel = new CartaoModel();
+        $data['cartoes'] = $cartaoModel->where('user_id', $user_id)->findAll();
+
+        return view('loja/pagamento', $data);
     }
 }
