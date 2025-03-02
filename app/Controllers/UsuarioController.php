@@ -36,7 +36,7 @@ class UsuarioController extends Controller
         $usuario = $usuarioModel->where('email', $dadosFormulario['email'])->first();
 
         if (!$usuario || !password_verify($dadosFormulario['senha'], $usuario['senha'])) {
-            return redirect()->back()->withInput()->with('error', 'E-mail ou senha inválidos.');
+            return redirect()->back()->withInput()->with('validation', ['senha' => 'E-mail ou senha inválidos.']);;
         }
 
         unset($usuario['senha'], $usuario['created_at'], $usuario['updated_at']);
