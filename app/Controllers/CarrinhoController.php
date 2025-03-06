@@ -127,9 +127,6 @@ class CarrinhoController extends BaseController
         $session = session();
         $user_id = $session->get('usuario')['id'];
 
-        // $cartaoModel = new CartaoModel();
-        // $data['cartoes'] = $cartaoModel->where('user_id', $user_id)->findAll();
-
         return view('loja/endereco');
     }
 
@@ -143,7 +140,7 @@ class CarrinhoController extends BaseController
 
         if (isset($dadosformulario['cep'])) {
             $dadosformulario['cep'] = str_replace('-', '', $dadosformulario['cep']);
-        }    
+        }
 
         $enderecoModel = new EnderecoModel();
 
@@ -184,6 +181,22 @@ class CarrinhoController extends BaseController
             return redirect()->back()->withInput()->with('validation', $allErrors);
         }
 
+        if ($enderecoModel->where('cep', $dadosformulario['cep'])->first() == null) {
+            $enderecoModel->insert([
+                'cep' => $dadosformulario['cep'],
+                'rua' => $dadosformulario['rua'],
+                'cidade' => $dadosformulario['cidade'],
+                'estado' => $dadosformulario['estado']
+            ]);
+        }
+
+        $enderecoData = [
+            'cep' => $dadosformulario['cep'],
+            'numero' => $dadosformulario['numero'],
+            'complemento' => $dadosformulario['complemento']
+        ];
+
+        session()->set('endereco', $enderecoData);
         return redirect()->to('finalizar/pagamento/');
     }
 
