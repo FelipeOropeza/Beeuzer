@@ -59,6 +59,7 @@ class PerfilController extends Controller
             'numero_cartao' => $postData['numero_cartao'],
             'nome_titular' => $postData['nome_titular'],
             'validade' => $validade,
+            'cvv' => $postData['cvv'],
             'tipo_cartao' => $postData['tipo_cartao'],
             'status' => 'Ativo'
         ]);

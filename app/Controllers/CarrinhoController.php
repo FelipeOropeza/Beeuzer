@@ -211,7 +211,11 @@ class CarrinhoController extends BaseController
     }
 
     public function finalizarPagamento(){
+        $cartaoModel = new CartaoModel();
         $dadosformulario = $this->request->getPost();
-        var_dump($dadosformulario);
+
+        if (!$cartaoModel->validate($dadosformulario)) {
+            return redirect()->back()->withInput()->with('validation', $cartaoModel->errors());
+        }
     }
 }

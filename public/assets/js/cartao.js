@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const cartaoSelecionado = document.getElementById("cartaoSelecionado");
-    const numeroCartao = document.getElementById("numeroCartao");
-    const dataValidade = document.getElementById("dataValidade");
+    const numeroCartao = document.getElementById("numero_cartao");
+    const dataValidade = document.getElementById("validade");
     const nometitular = document.getElementById("nome_titular");
     const tipoCartao = document.getElementById("tipo_cartao");
     const cvv = document.getElementById("cvv");
@@ -20,5 +20,15 @@ document.addEventListener("DOMContentLoaded", function () {
             tipoCartao.disabled = false;
             cvv.disabled = false;
         }
+    });
+});
+
+window.addEventListener('DOMContentLoaded', function () {
+    var erroAlerts = document.querySelectorAll('.text-danger');
+
+    erroAlerts.forEach(function(alert) {
+        setTimeout(function () {
+            alert.style.display = 'none';
+        }, 2500);
     });
 });

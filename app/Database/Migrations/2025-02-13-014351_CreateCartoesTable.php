@@ -31,6 +31,10 @@ class CreateCartoesTable extends Migration
             'validade' => [
                 'type' => 'DATE',
             ],
+            'cvv' => [
+                'type' => 'VARCHAR',
+                'constraint' => '3',
+            ],
             'tipo_cartao' => [
                 'type' => 'VARCHAR',
                 'constraint' => '50',

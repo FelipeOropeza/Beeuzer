@@ -12,7 +12,7 @@ class CartaoModel extends Model
     protected $returnType = 'array';
     protected $useSoftDeletes = false;
     protected $protectFields = true;
-    protected $allowedFields = ['user_id', 'numero_cartao', 'nome_titular', 'validade', 'tipo_cartao', 'status'];
+    protected $allowedFields = ['user_id', 'numero_cartao', 'nome_titular', 'validade', 'cvv','tipo_cartao', 'status'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -28,8 +28,31 @@ class CartaoModel extends Model
     protected $deletedField = 'deleted_at';
 
     // Validation
-    protected $validationRules = [];
-    protected $validationMessages = [];
+    protected $validationRules = [
+        'numero_cartao' => 'required',
+        'nome_titular' => 'required',
+        'validade' => 'required',
+        'cvv' => 'required|exact_length[3]',
+        'tipo_cartao' => 'required',
+    ];
+    protected $validationMessages = [
+        'numero_cartao' => [
+            'required' => 'O campo número do cartão é obrigatório.',
+        ],
+        'nome_titular' => [
+            'required' => 'O campo nome do titular é obrigatório.',
+        ],
+        'validade' => [
+            'required' => 'O campo validade é obrigatório.',
+        ],
+        'cvv' => [
+            'required' => 'O campo CVV é obrigatório.',
+            'exact_length' => 'O CVV deve ter 3 caracteres.',
+        ],
+        'tipo_cartao' => [
+            'required' => 'O campo tipo do cartão é obrigatório.',
+        ],
+    ];
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
 

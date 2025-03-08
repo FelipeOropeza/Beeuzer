@@ -15,9 +15,15 @@
                         <label for="numero_cartao" class="form-label">Número do Cartão</label>
                         <input type="text" class="form-control" id="numero_cartao" name="numero_cartao" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="validade" class="form-label">Validade</label>
-                        <input type="month" class="form-control" id="validade" name="validade" required>
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-6">
+                            <label for="validade" class="form-label">Validade</label>
+                            <input type="month" class="form-control" id="validade" name="validade" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <input type="text" class="form-control" id="cvv" name="cvv" required>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="tipo_cartao" class="form-label">Tipo do Cartão</label>
