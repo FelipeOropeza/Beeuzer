@@ -124,17 +124,12 @@ class CarrinhoController extends BaseController
 
     public function completarEndereco($id)
     {
-        $session = session();
-        $user_id = $session->get('usuario')['id'];
-
         return view('loja/endereco');
     }
 
     public function finalizarEndereco()
     {
-        $session = session();
         $validation = Services::validation();
-        $user_id = $session->get('usuario')['id'];
 
         $dadosformulario = $this->request->getPost();
 
@@ -193,14 +188,18 @@ class CarrinhoController extends BaseController
         $enderecoData = [
             'cep' => $dadosformulario['cep'],
             'numero' => $dadosformulario['numero'],
-            'complemento' => $dadosformulario['complemento']
+            'complemento' => $dadosformulario['complemento'],
+            'rua' => $dadosformulario['rua'],
+            'bairro' => $dadosformulario['bairro'],
+            'cidade' => $dadosformulario['cidade'],
+            'estado' => $dadosformulario['estado']
         ];
 
         session()->set('endereco', $enderecoData);
         return redirect()->to('finalizar/pagamento/');
     }
 
-    public function finalizarPagamento()
+    public function completarPagamento()
     {
         $session = session();
         $user_id = $session->get('usuario')['id'];
@@ -209,5 +208,10 @@ class CarrinhoController extends BaseController
         $data['cartoes'] = $cartaoModel->where('user_id', $user_id)->findAll();
 
         return view('loja/pagamento', $data);
+    }
+
+    public function finalizarPagamento(){
+        $dadosformulario = $this->request->getPost();
+        var_dump($dadosformulario);
     }
 }
