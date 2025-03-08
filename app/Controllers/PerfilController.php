@@ -16,6 +16,7 @@ class PerfilController extends Controller
     public function meusPedidos()
     {
         $usuarioId = session()->get('usuario')['id'];
+        $enderecoData = session()->get('endereco');
 
         $pedidoModel = new PedidoModel();
 
@@ -33,7 +34,7 @@ class PerfilController extends Controller
             $pedido['datapedido'] = $dataFormatada;
         }
 
-        return view('loja/meus-pedidos', ['pedidos' => $pedidos]);
+        return view('loja/meus-pedidos', ['pedidos' => $pedidos, 'endereco' => $enderecoData]);
     }
 
     public function meusCartoes()

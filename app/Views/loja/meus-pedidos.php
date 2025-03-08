@@ -22,9 +22,15 @@
                 <p class="text-gray-600 text-sm"><strong>Cartão:</strong>
                     <?= $pedido['cartao'] ? $pedido['cartao'] : '<span class="text-red-500">Não informado</span>' ?>
                 </p>
-                <p class="text-gray-600 text-sm"><strong>Endereço de entrega:</strong>
-                    <?= $pedido['endereco'] ? $pedido['endereco'] : '<span class="text-red-500">Não informado</span>' ?>
-                </p>
+                <?php if (empty($endereco)) { ?>
+                    <p class="text-gray-600 text-sm"><strong>Endereço de entrega:</strong>
+                        <?= $pedido['endereco'] ? $pedido['endereco'] : '<span class="text-red-500">Não informado</span>' ?>
+                    </p>
+                <?php } else { ?>
+                    <p class="text-gray-600 text-sm"><strong>Endereço de entrega:</strong>
+                        <?= $endereco['rua'] . ', ' . $endereco['numero'] . ' - ' . $endereco['bairro'] . ', ' . $endereco['cidade'] . ' - ' . $endereco['estado'] ?>
+                    </p>
+                <?php } ?>
                 <p class="mt-3 text-sm">
                     <strong class="text-gray-700">Status:</strong>
                     <?php if ($pedido['status_pedido'] === 'Aprovado'): ?>
@@ -42,11 +48,26 @@
                     <?php endif; ?>
                 </p>
                 <div class="mt-4 d-flex gap-2">
-                    <a href="<?= route_to('endereco', $pedido['id']) ?>">
-                        <button class="btn btn-primary btn-sm" style="width: auto;">
-                            Completar Informações
-                        </button>
-                    </a>
+                    <?php if (empty($endereco)) { ?>
+                        <a href="<?= route_to('endereco', $pedido['id']) ?>">
+                            <button class="btn btn-primary btn-sm" style="width: auto;">
+                                Completar Informações
+                            </button>
+                        </a>
+                    <?php } else { ?>
+                        <a href="<?= route_to('endereco', $pedido['id']) ?>">
+                            <button class="btn btn-warning btn-sm" style="width: auto;">
+                                Mudar endereco de entrega
+                            </button>
+                        </a>
+
+                        <a href="<?= url_to('pagamento') ?>">
+                            <button class="btn btn-primary btn-sm" style="width: auto;">
+                                Continuar com o pagamento
+                            </button>
+                        </a>
+                    <?php } ?>
+
                     <button class="btn btn-danger btn-sm" style="width: auto;">
                         Excluir
                     </button>
