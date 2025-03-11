@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 window.addEventListener('DOMContentLoaded', function () {
-    var erroAlerts = document.querySelectorAll('.text-danger');
+    var erroAlerts = document.querySelectorAll('.text-danger small');
 
     erroAlerts.forEach(function(alert) {
         setTimeout(function () {

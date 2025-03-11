@@ -257,6 +257,8 @@ class CarrinhoController extends BaseController
             'complemento' => $enderecoData['complemento']
         ]);
 
+        session()->remove('endereco');
+
         return redirect()->to('finalizar/sucesso/' . $id)
             ->with('sucesso', 'Pagamento realizado com sucesso!');
     }
@@ -267,8 +269,6 @@ class CarrinhoController extends BaseController
         $pedido = $pedidoModel->find($id);
 
         $sucesso = session()->getFlashdata('sucesso');
-
-        var_dump($sucesso);
 
         return view('loja/confirmacao', ['pedido' => $pedido, 'sucesso' => $sucesso]);
     }
