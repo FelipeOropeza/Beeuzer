@@ -5,8 +5,10 @@ use App\Models\CarrinhoModel;
 use App\Models\ProdutoVariacaoModel;
 use App\Models\PedidoModel;
 use App\Models\PedidoProdutoModel;
+use App\Models\EnderecoPagamentoModel;
 use App\Models\CartaoModel;
 use App\Models\EnderecoModel;
+use App\Models\PagamentoModel;
 use CodeIgniter\Config\Services;
 
 
@@ -119,15 +121,15 @@ class CarrinhoController extends BaseController
 
         $carrinhoModel->where('user_id', $user_id)->delete();
 
-        return redirect()->to('finalizar/completarinfo/' . $pedido_id);
+        return redirect()->to('finalizar/endereco/' . $pedido_id);
     }
 
     public function completarEndereco($id)
     {
-        return view('loja/endereco');
+        return view('loja/endereco', ['pedido_id' => $id]);
     }
 
-    public function finalizarEndereco()
+    public function finalizarEndereco($id)
     {
         $validation = Services::validation();
 
@@ -196,26 +198,79 @@ class CarrinhoController extends BaseController
         ];
 
         session()->set('endereco', $enderecoData);
-        return redirect()->to('finalizar/pagamento/');
+        return redirect()->to('finalizar/pagamento/' . $id);
     }
 
-    public function completarPagamento()
+    public function completarPagamento($id)
     {
         $session = session();
         $user_id = $session->get('usuario')['id'];
 
         $cartaoModel = new CartaoModel();
         $data['cartoes'] = $cartaoModel->where('user_id', $user_id)->findAll();
+        $data['pedido_id'] = $id;
 
-        return view('loja/pagamento', $data);
+        return view('loja/pagamento', $data, );
     }
 
-    public function finalizarPagamento(){
+    public function finalizarPagamento($id)
+    {
+        $user_id = session()->get('usuario')['id'];
+        $enderecoData = session()->get('endereco');
+
         $cartaoModel = new CartaoModel();
+        $pagamentoModel = new PagamentoModel();
+        $enderecoPagamentoModel = new EnderecoPagamentoModel();
+        $enderecoModel = new EnderecoModel();
         $dadosformulario = $this->request->getPost();
 
         if (!$cartaoModel->validate($dadosformulario)) {
             return redirect()->back()->withInput()->with('validation', $cartaoModel->errors());
         }
+
+        if ($dadosformulario['cartaoSelecionado'] == '') {
+            $cartao_id = $cartaoModel->insert([
+                'user_id' => $user_id,
+                'numero_cartao' => $dadosformulario['numero_cartao'],
+                'nome_titular' => $dadosformulario['nome_titular'],
+                'validade' => $dadosformulario['validade'],
+                'cvv' => $dadosformulario['cvv'],
+                'tipo_cartao' => $dadosformulario['tipo_cartao'],
+            ]);
+        } else {
+            $cartao_id = $dadosformulario['cartaoSelecionado'];
+        }
+
+        $pagamento_id = $pagamentoModel->insert([
+            'pedido_id' => $id,
+            'metodo_pagamento' => "Cartao",
+            'datapagamento' => date('Y-m-d'),
+            'cartao_id' => $cartao_id,
+        ]);
+
+        $endereco_id = $enderecoModel->where('cep', $enderecoData['cep'])->first()['id'];
+
+        $enderecoPagamentoModel->insert([
+            'endereco_id' => $endereco_id,
+            'pagamento_id' => $pagamento_id,
+            'numeroEndereco' => $enderecoData['numero'],
+            'complemento' => $enderecoData['complemento']
+        ]);
+
+        return redirect()->to('finalizar/sucesso/' . $id)
+            ->with('sucesso', 'Pagamento realizado com sucesso!');
     }
+
+    public function sucesso($id)
+    {
+        $pedidoModel = new PedidoModel();
+        $pedido = $pedidoModel->find($id);
+
+        $sucesso = session()->getFlashdata('sucesso');
+
+        var_dump($sucesso);
+
+        return view('loja/confirmacao', ['pedido' => $pedido, 'sucesso' => $sucesso]);
+    }
+
 }

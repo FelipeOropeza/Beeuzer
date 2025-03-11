@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 <div class="container py-5">
     <h2 class="text-center mb-4">Informações de Pagamento</h2>
-    <form method="POST">
+    <form action="<?= route_to( "finalizar_pagamento", $pedido_id) ?>" method="POST">
         <div class="card shadow-sm">
             <div class="card-header bg-primary text-white">
                 <h5 class="mb-0">Detalhes do Cartão</h5>

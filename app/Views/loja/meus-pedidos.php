@@ -61,7 +61,7 @@
                             </button>
                         </a>
 
-                        <a href="<?= url_to('pagamento') ?>">
+                        <a href="<?= route_to('pagamento', $pedido['id']) ?>">
                             <button class="btn btn-primary btn-sm" style="width: auto;">
                                 Continuar com o pagamento
                             </button>

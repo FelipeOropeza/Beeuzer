@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 <div class="container py-5">
     <h2 class="text-center mb-4">Endereço de Entrega</h2>
-    <form action="<?= url_to('finalizar_endereco'); ?>" method="POST">
+    <form action="<?= route_to('finalizar_endereco', $pedido_id); ?>" method="POST">
         <div class="card shadow-sm">
             <div class="card-header bg-secondary text-white">
                 <h5 class="mb-0">Endereço</h5>
