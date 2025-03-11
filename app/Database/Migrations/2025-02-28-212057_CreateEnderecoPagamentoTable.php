@@ -34,9 +34,14 @@ class CreateEnderecoPagamentoTable extends Migration
                 'constraint' => '255',
             ],
         ]);
+        
         $this->forge->addKey('id', true);
+        
+        $this->forge->addKey(['endereco_id', 'pagamento_id'], false); 
+        
         $this->forge->addForeignKey('endereco_id', 'enderecos', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('pagamento_id', 'pagamentos', 'id', 'CASCADE', 'CASCADE');
+        
         $this->forge->createTable('enderecospagamentos');
     }
 
