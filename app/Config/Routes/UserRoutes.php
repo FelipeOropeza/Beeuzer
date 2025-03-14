@@ -15,7 +15,6 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->post('finalizar/endereco/(:num)', 'CarrinhoController::finalizarEndereco/$1', ['as' => 'finalizar_endereco']); // Finalizar endereço
     $routes->get('finalizar/pagamento/(:num)', 'CarrinhoController::completarPagamento/$1', ['as' => 'pagamento']); // Finalizar pagamento
     $routes->post('finalizar/pagamento/(:num)', 'CarrinhoController::finalizarPagamento/$1', ['as' => 'finalizar_pagamento']); // Finalizar pagamento
-    $routes->get('finalizar/sucesso/(:num)', 'CarrinhoController::sucesso/$1', ['as' => 'sucesso']); // Página de sucesso
     $routes->get('perfil', 'PerfilController::index', ['as' => 'perfil']); // Perfil
     $routes->get('perfil/meus_pedidos', 'PerfilController::meusPedidos', ['as' => 'meus_pedidos']); // Meus pedidos
     $routes->get('perfil/meus_cartoes', 'PerfilController::meusCartoes', ['as' => 'meus_cartoes']); // Meus cartões

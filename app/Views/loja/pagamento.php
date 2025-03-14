@@ -1,6 +1,7 @@
 <?= $this->extend('loja/layouts/default') ?>
 
 <?= $this->section('content') ?>
+<?= session()->getFlashdata('sucesso') ?>
 <div class="container py-5">
     <h2 class="text-center mb-4">Informações de Pagamento</h2>
     <form action="<?= route_to( "finalizar_pagamento", $pedido_id) ?>" method="POST">

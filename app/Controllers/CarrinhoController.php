@@ -259,18 +259,7 @@ class CarrinhoController extends BaseController
 
         session()->remove('endereco');
 
-        return redirect()->to('finalizar/sucesso/' . $id)
+        return redirect()->to('finalizar/pagamento/' . $id)
             ->with('sucesso', 'Pagamento realizado com sucesso!');
     }
-
-    public function sucesso($id)
-    {
-        $pedidoModel = new PedidoModel();
-        $pedido = $pedidoModel->find($id);
-
-        $sucesso = session()->getFlashdata('sucesso');
-
-        return view('loja/confirmacao', ['pedido' => $pedido, 'sucesso' => $sucesso]);
-    }
-
 }
