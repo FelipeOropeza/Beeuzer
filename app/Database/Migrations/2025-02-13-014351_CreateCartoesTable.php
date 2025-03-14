@@ -42,7 +42,7 @@ class CreateCartoesTable extends Migration
             'status' => [
                 'type' => 'VARCHAR',
                 'constraint' => '50',
-                'default' => 'ativo',
+                'default' => 'Ativo',
             ],
         ]);
         $this->forge->addKey('id', true);

@@ -20,11 +20,11 @@
                         <?= number_format($pedido['totalpedido'], 2, ',', '.') ?></span>
                 </p>
                 <p class="text-gray-600 text-sm"><strong>Cartão:</strong>
-                    <?= $pedido['cartao'] ? $pedido['cartao'] : '<span class="text-red-500">Não informado</span>' ?>
+                    <?= $pedido['cartao'] ? $pedido['metodo_pagamento_completo'] : '<span class="text-red-500">Não informado</span>' ?>
                 </p>
-                <?php if (empty($endereco)) { ?>
+                <?php if ($pedido['endereco_completo'] != '') { ?>
                     <p class="text-gray-600 text-sm"><strong>Endereço de entrega:</strong>
-                        <?= $pedido['endereco'] ? $pedido['endereco'] : '<span class="text-red-500">Não informado</span>' ?>
+                        <?= $pedido['endereco'] ? $pedido['endereco_completo'] : '<span class="text-red-500">Não informado</span>' ?>
                     </p>
                 <?php } else { ?>
                     <p class="text-gray-600 text-sm"><strong>Endereço de entrega:</strong>
@@ -48,12 +48,14 @@
                     <?php endif; ?>
                 </p>
                 <div class="mt-4 d-flex gap-2">
-                    <?php if (empty($endereco)) { ?>
-                        <a href="<?= route_to('endereco', $pedido['id']) ?>">
-                            <button class="btn btn-primary btn-sm" style="width: auto;">
-                                Completar Informações
-                            </button>
-                        </a>
+                    <?php if ($pedido['endereco_completo'] != '') { ?>
+                        <?php if ($pedido['status_pedido'] != 'Aprovado') { ?>
+                            <a href="<?= route_to('endereco', $pedido['id']) ?>">
+                                <button class="btn btn-primary btn-sm" style="width: auto;">
+                                    Completar Informações
+                                </button>
+                            </a>
+                        <?php } ?>
                     <?php } else { ?>
                         <a href="<?= route_to('endereco', $pedido['id']) ?>">
                             <button class="btn btn-warning btn-sm" style="width: auto;">
