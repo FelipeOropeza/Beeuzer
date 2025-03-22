@@ -41,7 +41,9 @@ class PerfilController extends Controller
     {
         $cartaoModel = new CartaoModel();
 
-        $cartoes = $cartaoModel->where('user_id', session()->get('usuario')['id'])->findAll();
+        $cartoes = $cartaoModel->where('user_id', session()->get('usuario')['id'])
+        ->where('status', 'Ativo')  
+        ->findAll();
 
         return view('loja/meus-cartoes', ['cartoes' => $cartoes]);
     }
@@ -71,7 +73,9 @@ class PerfilController extends Controller
     {
         $cartaoModel = new CartaoModel();
 
-        $cartaoModel->delete($id);
+        $cartaoModel->update($id, [
+            'status' => 'Inativo'
+        ]);        
 
         return redirect()->to('perfil/meus_cartoes');
     }
