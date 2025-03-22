@@ -29,18 +29,18 @@ class CartaoModel extends Model
 
     // Validation
     protected $validationRules = [
-        'numero_cartao' => 'required',
         'nome_titular' => 'required',
+        'numero_cartao' => 'required',
         'validade' => 'required',
         'cvv' => 'required|exact_length[3]',
         'tipo_cartao' => 'required',
     ];
     protected $validationMessages = [
-        'numero_cartao' => [
-            'required' => 'O campo número do cartão é obrigatório.',
-        ],
         'nome_titular' => [
             'required' => 'O campo nome do titular é obrigatório.',
+        ],
+        'numero_cartao' => [
+            'required' => 'O campo número do cartão é obrigatório.',
         ],
         'validade' => [
             'required' => 'O campo validade é obrigatório.',

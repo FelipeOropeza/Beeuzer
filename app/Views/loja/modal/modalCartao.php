@@ -9,25 +9,45 @@
                 <form action="<?= url_to('cadastrar_cartao') ?>" method="POST">
                     <div class="mb-3">
                         <label for="nome_titular" class="form-label">Nome do Titular</label>
-                        <input type="text" class="form-control" id="nome_titular" name="nome_titular" required>
+                        <input type="text" class="form-control" id="nome_titular" name="nome_titular" value="<?= old('nome_titular') ?>">
+                        <?php if (isset(session('validation')['nome_titular'])): ?>
+                            <div class="text-danger small">
+                                <?= session('validation')['nome_titular'] ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                     <div class="mb-3">
                         <label for="numero_cartao" class="form-label">Número do Cartão</label>
-                        <input type="text" class="form-control" id="numero_cartao" name="numero_cartao" required>
+                        <input type="text" class="form-control" id="numero_cartao" name="numero_cartao" value="<?= old('numero_cartao') ?>">
+                        <?php if (isset(session('validation')['numero_cartao'])): ?>
+                            <div class="text-danger small">
+                                <?= session('validation')['numero_cartao'] ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                     <div class="row g-2 mb-3">
                         <div class="col-md-6">
                             <label for="validade" class="form-label">Validade</label>
-                            <input type="month" class="form-control" id="validade" name="validade" required>
+                            <input type="month" class="form-control" id="validade" name="validade" value="<?= old('validade') ?>">
+                            <?php if (isset(session('validation')['validade'])): ?>
+                            <div class="text-danger small">
+                                <?= session('validation')['validade'] ?>
+                            </div>
+                        <?php endif; ?>
                         </div>
                         <div class="col-md-6">
                             <label for="cvv" class="form-label">CVV</label>
-                            <input type="text" class="form-control" id="cvv" name="cvv" required>
+                            <input type="text" class="form-control" id="cvv" name="cvv" value="<?= old('cvv') ?>">
+                            <?php if (isset(session('validation')['cvv'])): ?>
+                            <div class="text-danger small">
+                                <?= session('validation')['cvv'] ?>
+                            </div>
+                        <?php endif; ?>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="tipo_cartao" class="form-label">Tipo do Cartão</label>
-                        <select class="form-select" id="tipo_cartao" name="tipo_cartao" required>
+                        <select class="form-select" id="tipo_cartao" name="tipo_cartao" >
                             <option value="Crédito">Crédito</option>
                             <option value="Débito">Débito</option>
                         </select>

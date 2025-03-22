@@ -1,6 +1,16 @@
 <?= $this->extend('loja/layouts/defaultperfil') ?>
 
 <?= $this->section('content') ?>
+
+<?php if (session('validation')): ?>
+    <script>
+        window.onload = function () {
+            var modal = new bootstrap.Modal(document.getElementById('modalCartao'));
+            modal.show();
+        }
+    </script>
+<?php endif; ?>
+
 <h2 class="mb-4">Cartões</h2>
 
 <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#modalCartao">
@@ -29,7 +39,8 @@
                     <td><?= esc($cartao['status']) ?></td>
                     <td>
                         <form action="<?= route_to('excluir_cartao', $cartao['id']) ?>" method="post" class="d-inline">
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este cartão?')">Excluir</button>
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Tem certeza que deseja excluir este cartão?')">Excluir</button>
                         </form>
                     </td>
                 </tr>

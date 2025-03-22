@@ -42,8 +42,8 @@ class PerfilController extends Controller
         $cartaoModel = new CartaoModel();
 
         $cartoes = $cartaoModel->where('user_id', session()->get('usuario')['id'])
-        ->where('status', 'Ativo')  
-        ->findAll();
+            ->where('status', 'Ativo')
+            ->findAll();
 
         return view('loja/meus-cartoes', ['cartoes' => $cartoes]);
     }
@@ -53,6 +53,10 @@ class PerfilController extends Controller
         $cartaoModel = new CartaoModel();
 
         $postData = $this->request->getPost();
+
+        if (!$cartaoModel->validate($postData)) {
+            return redirect()->back()->withInput()->with('validation', $cartaoModel->errors());
+        }
 
         $validade = $postData['validade'] . '-01';
 
@@ -75,7 +79,7 @@ class PerfilController extends Controller
 
         $cartaoModel->update($id, [
             'status' => 'Inativo'
-        ]);        
+        ]);
 
         return redirect()->to('perfil/meus_cartoes');
     }
