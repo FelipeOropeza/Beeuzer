@@ -13,7 +13,7 @@ class ProdutoVariacaoModel extends Model
 
     public function getVariaçõesProduto($pagina = 1, $itensPorPagina = 5)
     {
-        return $this->select('produtos_variacoes.id, produtos.nome, produtos.preco, cores.nome AS cor, tamanhos.descricao AS tamanho')
+        return $this->select('produtos.id as produto_id,produtos_variacoes.id, produtos.nome, produtos.preco, cores.nome AS cor, tamanhos.descricao AS tamanho, produtos.status')
                     ->join('produtos', 'produtos.id = produtos_variacoes.produto_id')
                     ->join('cores', 'cores.id = produtos_variacoes.cor_id')
                     ->join('tamanhos', 'tamanhos.id = produtos_variacoes.tamanho_id')

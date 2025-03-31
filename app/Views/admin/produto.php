@@ -42,6 +42,7 @@
                 <th>Preço</th>
                 <th>Cor</th>
                 <th>Tamanho</th>
+                <th>Status</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -53,9 +54,16 @@
                     <td>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></td>
                     <td><?= esc($produto['cor']) ?></td>
                     <td><?= esc($produto['tamanho']) ?></td>
+                    <td><?= esc($produto['status']) ?></td>
                     <td>
                         <button class="btn btn-warning btn-sm">Editar</button>
-                        <button class="btn btn-danger btn-sm">Excluir</button>
+                        <form action="<?= route_to('desativar_produto', $produto['produto_id']) ?>" method="post"
+                            style="display: inline;">
+                            <button type="submit"
+                                class="btn <?= $produto['status'] === 'Ativo' ? 'btn-danger' : 'btn-success' ?> btn-sm">
+                                <?= $produto['status'] === 'Ativo' ? 'Desativar' : 'Ativar' ?>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -65,7 +73,7 @@
 
 <?php if (isset($pager)): ?>
     <div class="d-flex justify-content-center">
-        <?= $pager->links('default','foundation_full') ?>
+        <?= $pager->links('default', 'foundation_full') ?>
     </div>
 <?php endif; ?>
 

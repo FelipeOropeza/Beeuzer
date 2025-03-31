@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\PedidoModel;
 use CodeIgniter\Controller;
 use App\Models\UsuarioModel;
 use App\Models\ProdutoModel;
@@ -66,9 +67,13 @@ class AdminController extends Controller
         $usuarioModel = new UsuarioModel();
         $usuariosCount = $usuarioModel->countAll();
 
+        $pedidoModel = new PedidoModel();
+        $pedidosCount = $pedidoModel->countAll();
+
         return view('admin/dashboard', [
             'produtosCount' => $produtosCount,
             'usuariosCount' => $usuariosCount,
+            'pedidosCount' => $pedidosCount
         ]);
     }
 
@@ -86,15 +91,15 @@ class AdminController extends Controller
         }
 
         service('pager');
-    
+
         $produtoModel = new ProdutoModel();
         $corModel = new CorModel();
         $tamanhoModel = new TamanhoModel();
-    
+
         $pagina = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
         $model = model(ProdutoVariacaoModel::class);
         $produtosVariacoes = $model->getVariaçõesProduto($pagina);
-    
+
         $data = [
             'produtosVariacoes' => $produtosVariacoes,
             'pager' => $model->pager,
@@ -102,7 +107,7 @@ class AdminController extends Controller
             'cores' => $corModel->findAll(),
             'tamanhos' => $tamanhoModel->findAll(),
         ];
-    
+
         return view('admin/produto', $data);
     }
 
@@ -142,6 +147,21 @@ class AdminController extends Controller
 
         return redirect()->to('admin/produtos')->with('success', 'Produto adicionado com sucesso.');
     }
+
+    public function desativarProduto($id)
+{
+    $produtoModel = new ProdutoModel();
+    $produto = $produtoModel->find($id);
+
+    $novoStatus = $produto['status'] === 'Ativo' ? 'Inativo' : 'Ativo';
+
+    $produtoModel->update($id, [
+        'status' => $novoStatus
+    ]);
+
+    return redirect()->to('admin/produtos');
+}
+
 
     public function adicionarVariacao()
     {

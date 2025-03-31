@@ -27,7 +27,7 @@
             <div class="card text-white bg-warning mb-3">
                 <div class="card-header">Pedidos</div>
                 <div class="card-body">
-                    <h5 class="card-title">23 Pedidos</h5>
+                    <h5 class="card-title"><?= $pedidosCount ?> Pedidos</h5>
                     <p class="card-text">Acompanhe os pedidos realizados.</p>
                 </div>
             </div>
