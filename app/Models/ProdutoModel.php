@@ -9,7 +9,7 @@ class ProdutoModel extends Model
     protected $table      = 'produtos';
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['nome', 'descricao', 'preco', 'imagem'];
+    protected $allowedFields = ['nome', 'descricao', 'preco', 'imagem', 'status'];
 
     protected $validationRules = [
         'nome'       => 'required|max_length[100]',
