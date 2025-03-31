@@ -12,7 +12,7 @@ class LojaController extends Controller
     {
         $produtoModel = new ProdutoModel();
 
-        $produtos = $produtoModel->findAll();
+        $produtos = $produtoModel->where('status', 'Ativo')->findAll();
 
         foreach ($produtos as &$produto) {
             if (!empty($produto['imagem'])) {
