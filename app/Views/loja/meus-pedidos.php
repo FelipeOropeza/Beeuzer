@@ -33,7 +33,7 @@
                         </p>
                     <?php } else { ?>
                         <p class="text-gray-600 text-sm"><strong>Endereço de entrega:</strong>
-                            <?= $endereco['rua'] . ', ' . $endereco['numero'] . ' - ' . $endereco['bairro'] . ', ' . $endereco['cidade'] . ' - ' . $endereco['estado'] ?>
+                            <?= $endereco['rua'] . ', ' . $endereco['cidade'] . '-' . $endereco['estado'] . ', ' . $endereco['numero'] . ' , ' . $endereco['cep'] ?>
                         </p>
                     <?php } ?>
                 <?php } ?>
