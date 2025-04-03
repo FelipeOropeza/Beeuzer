@@ -75,7 +75,7 @@ class CarrinhoController extends BaseController
     {
         $carrinhoModel = new CarrinhoModel();
         $carrinhoModel->delete($id);
-        return redirect()->to('loja/carrinho');
+        return redirect()->to('carrinho/meucarrinho');
     }
 
     public function finalizarCompra()

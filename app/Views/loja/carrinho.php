@@ -9,13 +9,14 @@
 
             <?php if (!empty($itens)): ?>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
+                    <table class="table">
                         <thead>
-                            <tr class="table-light">
+                            <tr>
                                 <th>Produto</th>
                                 <th>Tamanho</th>
                                 <th>Cor</th>
                                 <th>Quantidade</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,6 +27,13 @@
                                     <td><?= esc($item['tamanho']) ?></td>
                                     <td><?= esc($item['cor']) ?></td>
                                     <td><?= esc($item['quantidade']) ?></td>
+                                    <td>
+                                        <form class="form-excluir" action="<?= route_to('remover', $item['id_carrinho']) ?>"
+                                            method="post">
+                                            <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                                        </form>
+
+                                    </td>
                                 </tr>
                                 <?php $totalGeral += $item['total']; ?>
                             <?php endforeach; ?>
