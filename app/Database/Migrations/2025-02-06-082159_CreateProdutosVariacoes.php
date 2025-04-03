@@ -30,7 +30,13 @@ class CreateProdutosVariacoes extends Migration
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
-            ]
+            ],
+            ,
+            'status' => [
+                'type' => 'VARCHAR',
+                'constraint' => '50',
+                'default' => 'Ativo',
+            ],
         ]);
 
         $this->forge->addPrimaryKey('id');
