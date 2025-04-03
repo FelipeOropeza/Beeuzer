@@ -150,12 +150,12 @@ class AdminController extends Controller
 
     public function desativarProduto($id)
 {
-    $produtoModel = new ProdutoModel();
-    $produto = $produtoModel->find($id);
+    $produtoVariacaoModel = new ProdutoVariacaoModel();
+    $produto = $produtoVariacaoModel->find($id);
 
     $novoStatus = $produto['status'] === 'Ativo' ? 'Inativo' : 'Ativo';
 
-    $produtoModel->update($id, [
+    $produtoVariacaoModel->update($id, [
         'status' => $novoStatus
     ]);
 

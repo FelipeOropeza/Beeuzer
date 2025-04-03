@@ -57,7 +57,7 @@
                     <td><?= esc($produto['status']) ?></td>
                     <td>
                         <button class="btn btn-warning btn-sm">Editar</button>
-                        <form action="<?= route_to('desativar_produto', $produto['produto_id']) ?>" method="post"
+                        <form action="<?= route_to('desativar_produto', $produto['id']) ?>" method="post"
                             style="display: inline;">
                             <button type="submit"
                                 class="btn <?= $produto['status'] === 'Ativo' ? 'btn-danger' : 'btn-success' ?> btn-sm">
