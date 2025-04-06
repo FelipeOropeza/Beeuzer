@@ -5,7 +5,7 @@
                 <h5 class="modal-title" id="modalEditarVariacaoLabel">Editar Preço do Produto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<?= route_to('editar_variacao_produto') ?>" method="post">
+            <form action="<?= route_to('atualizar_produto') ?>" method="post">
                 <div class="modal-body">
                     <input type="hidden" id="produto_id" name="produto_id">
 

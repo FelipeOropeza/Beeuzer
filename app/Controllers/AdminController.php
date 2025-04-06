@@ -149,19 +149,31 @@ class AdminController extends Controller
     }
 
     public function desativarProduto($id)
-{
-    $produtoVariacaoModel = new ProdutoVariacaoModel();
-    $produto = $produtoVariacaoModel->find($id);
+    {
+        $produtoVariacaoModel = new ProdutoVariacaoModel();
+        $produto = $produtoVariacaoModel->find($id);
 
-    $novoStatus = $produto['status'] === 'Ativo' ? 'Inativo' : 'Ativo';
+        $novoStatus = $produto['status'] === 'Ativo' ? 'Inativo' : 'Ativo';
 
-    $produtoVariacaoModel->update($id, [
-        'status' => $novoStatus
-    ]);
+        $produtoVariacaoModel->update($id, [
+            'status' => $novoStatus
+        ]);
 
-    return redirect()->to('admin/produtos');
-}
+        return redirect()->to('admin/produtos');
+    }
 
+    public function atualizarProduto(){
+        $dadosForm = $this->request->getPost();
+        
+        $produtoModel = new ProdutoModel();
+
+        $produtoModel->update($dadosForm['produto_id'], [
+            'preco' => $dadosForm['preco']
+        ]);
+
+        return redirect()->to('admin/produtos');
+
+    }
 
     public function adicionarVariacao()
     {
