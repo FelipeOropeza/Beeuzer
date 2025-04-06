@@ -56,7 +56,8 @@
                     <td><?= esc($produto['tamanho']) ?></td>
                     <td><?= esc($produto['status']) ?></td>
                     <td>
-                        <button class="btn btn-warning btn-sm">Editar</button>
+                        <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#modalEditarVariacao">Editar</button>
                         <form action="<?= route_to('desativar_produto', $produto['id']) ?>" method="post"
                             style="display: inline;">
                             <button type="submit"
@@ -79,5 +80,6 @@
 
 <?= $this->include('admin/modal/modalProduto') ?>
 <?= $this->include('admin/modal/modalProdutoVariacoes') ?>
+<?= $this->include('admin/modal/modalEditarProduto'); ?>
 
 <?= $this->endSection() ?>
