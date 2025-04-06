@@ -167,6 +167,12 @@ class AdminController extends Controller
         
         $produtoModel = new ProdutoModel();
 
+        if (!$produtoModel->validate($dadosForm)) {
+            return redirect()->to('admin/produtos')
+                ->withInput()
+                ->with('validationProd', $produtoModel->errors());
+        }
+
         $produtoModel->update($dadosForm['produto_id'], [
             'preco' => $dadosForm['preco']
         ]);

@@ -12,6 +12,14 @@
     </script>
 <?php endif; ?>
 
+<?php if (session('validationProd')): ?>
+    <script>
+        $(document).ready(function () {
+            $('#modalEditarVariacao').modal('show');
+        });
+    </script>
+<?php endif; ?>
+
 <?php if (session()->getFlashdata('success')): ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <?= session()->getFlashdata('success') ?>

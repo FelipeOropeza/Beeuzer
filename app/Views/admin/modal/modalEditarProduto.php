@@ -1,4 +1,5 @@
-<div class="modal fade" id="modalEditarVariacao" tabindex="-1" aria-labelledby="modalEditarVariacaoLabel" aria-hidden="true">
+<div class="modal fade" id="modalEditarVariacao" tabindex="-1" aria-labelledby="modalEditarVariacaoLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,7 +12,10 @@
 
                     <div class="mb-3">
                         <label for="preco" class="form-label">Preço</label>
-                        <input type="text" class="form-control" id="preco" name="preco" required>
+                        <input type="text" class="form-control" id="preco" name="preco">
+                        <?php if (isset(session('validationProd')['preco'])): ?>
+                            <div class="text-danger"><?= session('validationProd')['preco'] ?></div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="modal-footer">
