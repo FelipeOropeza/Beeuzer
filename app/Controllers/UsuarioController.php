@@ -33,6 +33,12 @@ class UsuarioController extends Controller
             ]);
         }
 
+        if($emailExistente['email_verificado'] == 0){
+            return redirect()->back()->withInput()->with('validation', [
+                'email' => 'O e-mail informado não está verificado.'
+            ]);
+        }
+
         $usuario = $usuarioModel->where('email', $dadosFormulario['email'])->first();
 
         if (!$usuario || !password_verify($dadosFormulario['senha'], $usuario['senha'])) {
@@ -80,6 +86,20 @@ class UsuarioController extends Controller
 
         $usuarioModel->save($dadosFormulario);
 
-        return redirect()->to('login')->with('success', 'Usuário cadastrado com sucesso!');
+        $email = service('email');
+        
+        $email->setFrom('felipe2006.co@gmail.com', 'Beeuzer');
+        $email->setTo($dadosFormulario['email']);
+        $email->setSubject('Teste de envio via Gmail');
+        $email->setMessage('<h2>Funcionou!</h2><p>Email enviado usando configuração separada.</p>');
+
+        if ($email->send()) {
+            echo '✅ Email enviado com sucesso!';
+        } else {
+            echo '❌ Erro ao enviar email:<br>';
+            echo $email->print_debugger(['headers']);
+        }
+
+        return redirect()->to('login')->with('success', 'Pra completar o cadastro verifique o seu e-mail!');
     }
 }
