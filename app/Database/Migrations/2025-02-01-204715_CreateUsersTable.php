@@ -10,27 +10,31 @@ class CreateUsersTable extends Migration
     {
         $this->forge->addField([
             'id' => [
-                'type'           => 'INT',
-                'constraint'     => 11,
+                'type' => 'INT',
+                'constraint' => 11,
                 'auto_increment' => true,
-                'unsigned'       => true,
+                'unsigned' => true,
             ],
             'nome' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 100,
             ],
             'email' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 100,
-                'unique'     => true,
+                'unique' => true,
             ],
             'senha' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
             ],
             'is_admin' => [
-                'type'       => 'BOOLEAN',
-                'default'    => 0,
+                'type' => 'BOOLEAN',
+                'default' => 0,
+            ],
+            'email_verificado' => [
+                'type' => 'BOOLEAN',
+                'default' => 0,
             ]
         ]);
 
