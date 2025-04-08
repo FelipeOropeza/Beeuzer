@@ -36,10 +36,6 @@ class Email extends BaseConfig
 
     public function __construct()
     {
-        $this->fromEmail   = env('email.fromEmail');
-        $this->fromName    = env('email.fromName');
-        $this->recipients  = env('email.recipients');
-
         $this->SMTPHost    = env('email.SMTPHost');
         $this->SMTPUser    = env('email.SMTPUser');
         $this->SMTPPass    = env('email.SMTPPass');
