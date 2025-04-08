@@ -87,18 +87,22 @@ class UsuarioController extends Controller
         $usuarioModel->save($dadosFormulario);
 
         $email = service('email');
+
+        $dados = [
+            'titulo'    => 'Olá, tudo certo?',
+            'mensagem'  => 'Este é um exemplo de e-mail com view no CodeIgniter.',
+            'link_text' => 'Acesse nosso site',
+            'link_url'  => 'https://seusite.com'
+        ];
         
+        $mensagem = view('emails/template', $dados);
+
         $email->setFrom('felipe2006.co@gmail.com', 'Beeuzer');
         $email->setTo($dadosFormulario['email']);
         $email->setSubject('Teste de envio via Gmail');
-        $email->setMessage('<h2>Funcionou!</h2><p>Email enviado usando configuração separada.</p>');
+        $email->setMessage($mensagem);
 
-        if ($email->send()) {
-            echo '✅ Email enviado com sucesso!';
-        } else {
-            echo '❌ Erro ao enviar email:<br>';
-            echo $email->print_debugger(['headers']);
-        }
+        $email->send();
 
         return redirect()->to('login')->with('success', 'Pra completar o cadastro verifique o seu e-mail!');
     }
