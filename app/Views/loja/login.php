@@ -18,7 +18,7 @@
                     <label for="email" class="form-label">E-mail</label>
                     <input type="email" name="email" id="email" class="form-control" value="<?= old('email') ?>">
                     <?php if (isset(session('validation')['email'])): ?>
-                        <div class="text-danger">
+                        <div id="alert" class="text-danger">
                             <?= session('validation')['email'] ?>
                         </div>
                     <?php endif; ?>
@@ -28,7 +28,7 @@
                     <label for="password" class="form-label">Senha</label>
                     <input type="password" name="senha" id="senha" class="form-control">
                     <?php if (isset(session('validation')['senha'])): ?>
-                        <div class="text-danger">
+                        <div id="alert" class="text-danger">
                             <?= session('validation')['senha'] ?>
                         </div>
                     <?php endif; ?>
@@ -51,6 +51,16 @@
                 successAlert.style.display = 'none';
             }, 2000);
         }
+    });
+
+    window.addEventListener('DOMContentLoaded', function () {
+        var alert = document.querySelectorAll('#alert');
+
+        alert.forEach(function (alert) {
+            setTimeout(function () {
+                alert.style.display = "none";
+            }, 2000)
+        });
     });
 </script>
 
