@@ -39,6 +39,12 @@ class UsuarioController extends Controller
             ]);
         }
 
+        if($emailExistente['email_verificado'] == 0){
+            return redirect()->back()->withInput()->with('validation', [
+                'email' => 'O e-mail informado não está verificado.'
+            ]);
+        }
+
         $usuario = $usuarioModel->where('email', $dadosFormulario['email'])->first();
 
         if (!$usuario || !password_verify($dadosFormulario['senha'], $usuario['senha'])) {
