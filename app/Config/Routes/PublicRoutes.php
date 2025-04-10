@@ -11,4 +11,5 @@ $routes->get('cadastro', 'UsuarioController::cadastro', ['as' => 'cadastro']); /
 $routes->post('cadastro', 'UsuarioController::registrar', ['as' => 'registrar']); // Processar cadastro
 $routes->get('login', 'UsuarioController::login', ['as' => 'login']); // Página de login
 $routes->post('login', 'UsuarioController::autenticar', ['as' => 'autenticar']); // Processar login
+$routes->get('valida/email', 'UsuarioController::validaEmail', ['as' => 'valida_email']);
 $routes->get('logout', 'UsuarioController::logout', ['as' => 'logout']); // Logout

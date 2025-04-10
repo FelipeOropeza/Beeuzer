@@ -33,13 +33,13 @@ class UsuarioController extends Controller
             ]);
         }
 
-        if($emailExistente['email_verificado'] == 0){
+        if ($emailExistente['email_verificado'] == 0) {
             return redirect()->back()->withInput()->with('validation', [
                 'email' => 'O e-mail informado não está verificado.'
             ]);
         }
 
-        if($emailExistente['email_verificado'] == 0){
+        if ($emailExistente['email_verificado'] == 0) {
             return redirect()->back()->withInput()->with('validation', [
                 'email' => 'O e-mail informado não está verificado.'
             ]);
@@ -48,7 +48,8 @@ class UsuarioController extends Controller
         $usuario = $usuarioModel->where('email', $dadosFormulario['email'])->first();
 
         if (!$usuario || !password_verify($dadosFormulario['senha'], $usuario['senha'])) {
-            return redirect()->back()->withInput()->with('validation', ['senha' => 'E-mail ou senha inválidos.']);;
+            return redirect()->back()->withInput()->with('validation', ['senha' => 'E-mail ou senha inválidos.']);
+            ;
         }
 
         unset($usuario['senha'], $usuario['created_at'], $usuario['updated_at']);
@@ -95,21 +96,36 @@ class UsuarioController extends Controller
         $email = service('email');
 
         $dados = [
-            'titulo'    => 'Olá, tudo certo?',
-            'mensagem'  => 'Este é um exemplo de e-mail com view no CodeIgniter.',
-            'link_text' => 'Acesse nosso site',
-            'link_url'  => 'https://seusite.com'
+            'titulo' => 'Olá, tudo certo?',
+            'mensagem' => 'Click no botão abaixo pra validar seu e-maiil.',
+            'link_text' => 'Validar e-mail',
+            'parametro' => $dadosFormulario['email']
         ];
-        
+
         $mensagem = view('emails/template', $dados);
 
         $email->setFrom('felipe2006.co@gmail.com', 'Beeuzer');
         $email->setTo($dadosFormulario['email']);
-        $email->setSubject('Teste de envio via Gmail');
+        $email->setSubject('Verificação do e-email');
         $email->setMessage($mensagem);
 
         $email->send();
 
         return redirect()->to('login')->with('success', 'Pra completar o cadastro verifique o seu e-mail!');
+    }
+
+    public function validaEmail()
+    {
+        $email = $this->request->getGet('email');
+
+        $usuarioModel = new UsuarioModel();
+
+        $usuario = $usuarioModel->where('email', $email)->first();
+
+        $usuarioModel->update($usuario['id'], [
+            'email_verificado' => 1
+        ]);
+
+        return redirect()->to('login')->with('success', 'Seu email foi verificado com sucesso!');
     }
 }
