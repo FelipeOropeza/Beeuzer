@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\UsuarioModel;
 use CodeIgniter\Controller;
 use App\Models\CartaoModel;
 use App\Models\PedidoModel;
@@ -10,7 +11,13 @@ class PerfilController extends Controller
 {
     public function index()
     {
-        return view('loja/perfil');
+        $usuarioId = session()->get('usuario')['id'];
+
+        $usuarioModel = new UsuarioModel();
+
+        $usuario = $usuarioModel->where('id',$usuarioId)->first();
+
+        return view('loja/perfil', ['usuario' => $usuario]);
     }
 
     public function meusPedidos()
