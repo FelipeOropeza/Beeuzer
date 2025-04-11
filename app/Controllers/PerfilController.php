@@ -20,6 +20,20 @@ class PerfilController extends Controller
         return view('loja/perfil', ['usuario' => $usuario]);
     }
 
+    public function excluirConta(){
+        $usuarioId = session()->get('usuario')['id'];
+
+        $usuarioModel = new UsuarioModel();
+
+        $usuarioModel->update($usuarioId, [
+            'status' => 'Inativo'
+        ]);
+
+        session()->destroy();
+        
+        return redirect()->to('/');
+    }
+
     public function meusPedidos()
     {
         $usuarioId = session()->get('usuario')['id'];

@@ -35,7 +35,12 @@ class CreateUsersTable extends Migration
             'email_verificado' => [
                 'type' => 'BOOLEAN',
                 'default' => 0,
-            ]
+            ],
+            'status' => [
+                'type' => 'VARCHAR',
+                'constraint' => '30',
+                'default' => 'Ativo',
+            ],
         ]);
 
         $this->forge->addPrimaryKey('id');

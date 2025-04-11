@@ -14,7 +14,8 @@ class UsuarioModel extends Model
         'email',
         'senha',
         'is_admin',
-        'email_verificado'
+        'email_verificado',
+        'status'
     ];
 
     protected $validationRules = [

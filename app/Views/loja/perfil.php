@@ -11,7 +11,7 @@
     </ul>
 
     <div style="margin-top: 30px;">
-        <form action="<?= site_url('conta/deletar') ?>" method="post" onsubmit="return confirm('Tem certeza que deseja excluir sua conta? Essa ação não poderá ser desfeita.');" style="display: inline;">
+        <form action="<?= url_to('excluir_conta') ?>" method="post" onsubmit="return confirm('Tem certeza que deseja excluir sua conta? Essa ação não poderá ser desfeita.');" style="display: inline;">
             <?= csrf_field() ?>
             <button type="submit" class="btn btn-danger">🗑️ Deletar Conta</button>
         </form>
