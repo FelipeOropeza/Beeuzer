@@ -27,7 +27,7 @@ class UsuarioController extends Controller
         }
 
         $emailExistente = $usuarioModel->where('email', $dadosFormulario['email'])->first();
-        if (!$emailExistente) {
+        if (!$emailExistente || $emailExistente['status'] != 'Ativo') {
             return redirect()->back()->withInput()->with('validation', [
                 'email' => 'O e-mail informado não está registrado.'
             ]);
