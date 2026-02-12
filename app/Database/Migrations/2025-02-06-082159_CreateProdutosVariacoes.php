@@ -31,7 +31,6 @@ class CreateProdutosVariacoes extends Migration
                 'constraint' => 11,
                 'unsigned' => true,
             ],
-            ,
             'status' => [
                 'type' => 'VARCHAR',
                 'constraint' => '50',
